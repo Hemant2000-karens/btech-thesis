@@ -1,4 +1,4 @@
-This is LuaHBTeX, Version 1.16.0 (TeX Live 2023)  (format=lualatex 2024.3.4)  5 MAR 2024 00:30
+This is LuaHBTeX, Version 1.16.0 (TeX Live 2023)  (format=lualatex 2024.3.4)  5 MAR 2024 00:42
  restricted system commands enabled.
 **main.tex
 (./main.tex
@@ -992,23 +992,21 @@ Underfull \vbox (badness 1019) has occurred while \output is active []
 
 
 ]
+Underfull \hbox (badness 2042) in paragraph at lines 268--268
+[]\TU/EBGaramond-VariableFont_wght.ttf(0)/b/n/14.4 Mea-sure Changes of Files
+’ Data (En-
+ []
+
+[2]
 (/usr/local/texlive/2023/texmf-dist/tex/generic/hyph-utf8/loadhyph/loadhyph-la.
 tex UTF-8 Latin hyphenation patterns
 (/usr/local/texlive/2023/texmf-dist/tex/generic/hyph-utf8/patterns/tex/hyph-la.
-tex))
-Underfull \hbox (badness 1776) in paragraph at lines 202--202
-\TU/EBGaramond-VariableFont_wght.ttf(0)/m/n/12 pla-ce-rat odio, nec com-modo wis
-i enim eget quam.
- []
-
-[2] [3
-
-]
+tex)) [3]
 
 LaTeX Font Warning: Font shape `TU/EBGaramond-VariableFont_wght.ttf(0)/m/it' un
 defined
 (Font)              using `TU/EBGaramond-VariableFont_wght.ttf(0)/m/n' instead 
-on input line 216.
+on input line 300.
 
 [4
 
@@ -1023,20 +1021,20 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 )
 
 Here is how much of LuaTeX's memory you used:
- 15935 strings out of 478285
+ 15937 strings out of 478285
  125056,1977958 words of node,token memory allocated
  519 words of node memory still in use:
    4 hlist, 1 vlist, 1 rule, 4 glue, 3 kern, 1 glyph, 8 attribute, 64 glue_spec,
  5 attribute_list, 1 write nodes
-   avail lists: 2:322,3:138,4:27,5:584,6:36,7:8627,8:1,9:254,10:21,11:916
- 35687 multiletter control sequences out of 65536+600000
- 65 fonts using 19021055 bytes
+   avail lists: 2:833,3:286,4:84,5:594,6:91,7:7818,8:1,9:347,10:21,11:821
+ 35689 multiletter control sequences out of 65536+600000
+ 65 fonts using 19021695 bytes
  72i,11n,84p,1045b,1722s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2023/texmf-dist/fonts/opentype/public/ebgaramond/EBGaramond-
 MediumItalic.otf></usr/local/texlive/2023/texmf-dist/fonts/opentype/public/ebgar
 amond/EBGaramond-Bold.otf><./EnglishTowne.ttf><./EBGaramond-SemiBold.ttf><./EBGa
 ramond-VariableFont_wght.ttf><./EBGaramond-Bold.ttf>
-Output written on main.pdf (7 pages, 113040 bytes).
+Output written on main.pdf (7 pages, 113436 bytes).
 
 PDF statistics: 70 PDF objects out of 1000 (max. 8388607)
  40 compressed objects within 1 object stream
