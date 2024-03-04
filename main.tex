@@ -15,6 +15,7 @@
 \usepackage{xcolor}
 \usepackage{csquotes}
 \usepackage[style=authoryear, backend=biber]{biblatex}
+\usepackage[linesnumbered,ruled,vlined]{algorithm2e}
 \addbibresource{reference.bib}
 
 % Define custom color for the abstract block
@@ -159,7 +160,7 @@
 \twocolumn[
 
 \hrule
-    \begin{abstract}
+   \begin{abstract}
 \hrule
 
 \vspace*{0.5 cm}
@@ -293,6 +294,22 @@ Result will be disclosed soon, working on it
 \section{Conclusion}
 Work is going on
 
+\begin{algorithm}
+
+    \SetAlgoNlRelativeSize{-1}
+    \caption{xyzzy}
+    \KwData{None}
+    \KwResult{Hello, World!}
+    \BlankLine
+    
+    \While{true}{
+        Print("Hello, World!")\;
+        \If{Condition}{
+            DoSomething()\;
+        }
+    }
+    \hrule
+\end{algorithm}
 
 
 \twocolumn[
