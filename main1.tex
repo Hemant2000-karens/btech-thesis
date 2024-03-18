@@ -1,12 +1,74 @@
-\documentclass[12pt,twocolumn]{article}
-
-\usepackage{lipsum} % for dummy text
+\documentclass{article}
+\usepackage{enumitem}
+\usepackage{array}
 
 \begin{document}
 
-\section[Introduction]{Introduction}
-In an era dominated by digital connectivity, the persistent threat of ransomware looms large, posing a formidable challenge to the security of individuals and organizations alike. Ransomware, a malicious software that encrypts or locks files and demands a ransom for their release, has evolved into a sophisticated and dynamic cyber threat. Understanding the nuances of ransomware is pivotal in developing effective countermeasures to safeguard against its pernicious impacts.
+\begin{center}
 
-\lipsum[1-3] % dummy text
+    \twocolumn[
+\begin{table}[htbp]
+    \centering
+    \caption{Ransomware Detection Techniques}
+    \label{tab:ransomware_detection}
+    \begin{tabular}{|p{4cm}|p{4.5cm}|p{4.5cm}|}
+    \hline
+    \textbf{Technique} & \textbf{Pros} & \textbf{Cons} \\
+    \hline
+    Static File Analysis & 
+    \begin{itemize}[leftmargin=*, nosep]
+        \item Fast and efficient.
+        \item Does not require actual execution.
+    \end{itemize} &
+    \begin{itemize}[leftmargin=*, nosep]
+        \item Limited to known signatures.
+        \item Unable to detect polymorphic or new variants.
+    \end{itemize} \\
+    \hline
+    Common File Extensions Blacklist & 
+    \begin{itemize}[leftmargin=*, nosep]
+        \item Targets known ransomware file types.
+        \item Relatively easy to implement.
+    \end{itemize} &
+    \begin{itemize}[leftmargin=*, nosep]
+        \item May generate false positives for legitimate files.
+        \item Ineffective against file-less ransomware.
+    \end{itemize} \\
+    \hline
+    Honeypot Files / Deception Techniques & 
+    \begin{itemize}[leftmargin=*, nosep]
+        \item Provides early detection by attracting ransomware.
+        \item Allows for studying ransomware behavior.
+    \end{itemize} &20
+    \begin{itemize}[leftmargin=*, nosep]
+        \item Requires careful setup to avoid false positives.
+        \item May not capture all types of ransomware.
+    \end{itemize} \\
+    \hline
+    Dynamic Monitoring of Mass File Operations & 
+    \begin{itemize}[leftmargin=*, nosep]
+        \item Detects ransomware during the encryption phase.
+        \item Responsive to active threats.
+    \end{itemize} &
+    \begin{itemize}[leftmargin=*, nosep]
+        \item May generate false alarms during legitimate file operations.
+        \item Reactive in nature.
+    \end{itemize} \\
+    \hline
+    Measure Changes of Files’ Data (Entropy) & 
+    \begin{itemize}[leftmargin=*, nosep]
+        \item Detects alterations in file data.
+        \item Independent of specific ransomware signatures.
+    \end{itemize} &
+    \begin{itemize}[leftmargin=*, nosep]
+        \item Requires baseline entropy data for accurate detection.
+        \item Limited to file modification detection.
+    \end{itemize} \\
+    \hline
+    \end{tabular}
+\end{table}
+]
+    
+\end{center}
 
 \end{document}
