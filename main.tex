@@ -18,6 +18,7 @@
 \usepackage[style=authoryear, backend=biber]{biblatex}
 \usepackage[linesnumbered,ruled,vlined]{algorithm2e}
 \addbibresource{reference.bib}
+\usepackage{soul}
 
 % Define custom color for the abstract block
 \definecolor{abstractcolor}{RGB}{240,240,240}
@@ -277,7 +278,7 @@
 \end{enumerate}
 
 % Image Embed
-\begin{figure*}
+\begin{figure*}[ht]
   \includegraphics[width=\textwidth, height= 8 cm]{20180214-Free-Ransomware-1.png} % Replace example-image with your actual image file
   \caption{Generic working of Ransomware}
   \label{fig:my_label}
@@ -293,22 +294,111 @@ In the fight against ransomware, a comprehensive approach involving various dete
 
 We are trying to implement Ransomware Detection with differently approach, that no one might though about. In our detection Approach, we can develop some kind of algorithm and tactics which can scan, ransomware, and not only ransomware, but any kinds of malicious sect of code/ file, which can leads to execution of ransomware. 
 
+The execution of attacks on a node or within a network entails a systematic series of steps designed to optimize efficacy while minimizing the risk of detection. These steps encompass a structured approach to planning, reconnaissance, exploitation, and post-exploitation activities. Each phase is meticulously orchestrated to achieve specific objectives and maintain operational security. The methodology adheres to established principles of ethical hacking and penetration testing, ensuring that security vulnerabilities are identified and remediated effectively. Throughout this process, comprehensive documentation and reporting are maintained to facilitate remedial action and improve the overall security posture of the targeted system or network.
+
+\subsection{Steps involved in process of Attack:}
+
+\begin{enumerate}[label=\arabic*.]
+    \item Infection:
+
+    \begin{enumerate}[label=\alph*.]
+        \item Delivery: Ransomware reaches a target system through various methods like phishing emails with malicious attachments, infected websites, RDP (Remote Desktop Protocol) vulnerabilities, or unpatched software.
+
+        \item Initial Foothold: Once the ransomware gains access, it exploits vulnerabilities to establish a foothold on the system. This might involve creating new user accounts, disabling security software, or spreading laterally across the network.
+        
+    \end{enumerate}
+
+    \item Encryption:
+
+    \begin{enumerate}[label=\alph*.]
+        \item File Targeting: The ransomware identifies and targets critical files and documents on the victim's device or network. This could include financial records, personal data, business documents, or system files.
+
+        \item Encryption Process: Using strong encryption algorithms, the ransomware encrypts the targeted files, making them inaccessible to the victim. This process might vary depending on the specific ransomware strain.
+
+        \item Encryption Key Generation: During encryption, the ransomware creates a unique decryption key for each victim. This key is essential for regaining access to the encrypted files. However, the attackers keep this key for themselves.
+        
+    \end{enumerate}
+
+    \item Ransom Demand:
+
+        Ransom Note: The ransomware displays a ransom note on the victim's screen. This note explains the situation, highlights the urgency, and outlines the attacker's demands. It typically includes instructions on how to pay the ransom, often in cryptocurrency like Bitcoin, due to its anonymity. The note might threaten to permanently delete backups, leak stolen data, or launch further attacks if the ransom isn't paid within a specific time frame.
+
+        \item Verification (Hypothetical Scenario):
+
+            \begin{enumerate}[label=\alph*.]
+                \item Ransom Payment: If the victim chooses to pay (not recommended), they'd follow the attacker's instructions, which might involve sending cryptocurrency to a specific address.
+    
+                \item Verification (Unreliable): In an ideal scenario (which isn't guaranteed with cybercriminals), the attackers might verify the payment received.
+            \end{enumerate}
+        
+        \item Decryption (Hypothetical Scenario):
+
+            \begin{enumerate}[label=\alph*.]
+                \item Decryptor Delivery (Unreliable): Again, assuming the attackers keep their word, they might provide a decryptor tool or the unique decryption key to the victim.
+
+                \item Decryption Process: The victim would then use the decryptor or key to decrypt the compromised files and regain access.
+            \end{enumerate}
+
+\subsection{Safety Precautions and Measures:}
+    \item Recovery (Recommended Approach):
+        \begin{itemize}
+            \item Isolate Infected Systems: Disconnect affected devices from the network to prevent further spread.
+
+            \item Report the Attack: Inform law enforcement agencies and relevant authorities to assist with investigation and potential recovery efforts.
+
+            \item Restore from Backups: If you have up-to-date backups, restore your critical data from a safe, isolated location.
+    
+            \item Remediate Vulnerabilities: Patch software vulnerabilities, update security software, and implement stronger access controls to prevent future attacks.
+    
+        \end{itemize}
+    
+\end{enumerate}
+
+
+
+
 Incorporating a combination of these techniques provides a layered defense against ransomware, enhancing the likelihood of early detection and mitigation.
 
 
+%
+\section{Progress Update}
+
+\subsection{Creation and Testing of Ransomware}
+
+\paragraph{We have created ransomware, by using Python as base Language and WindowsNT OS. As per instructions, we have tried to build it on Linux Environment, but after doing research, we have found that most of the ransomware is build and delivered on Windows Environment only, and of course in our Build, we are dependent on Packages like \hl{pywin32} \& \hl{pywin32-ctypes}, which is only available for Windows System Environment.}
+
+\paragraph{We are improving the quality and prototype into little real one, with educational Intention.}
+
+
 % Results
-\section{Results}
+\section{Results and Discussions}
 % \lipsum[13-16] % Generate dummy text
-Result will be disclosed soon, working on it
+
+\subsection{Attack Performed}
+\paragraph{We have performed attack samples, and verified, screenshots will be in demo.}
+
+
+
+% Future Work
+
+\section{Future Works}
+
+\subsection{Delivery of Ransomware}
+
+\paragraph{We are preparing and deciding method to devlier ransomware, like by physical Attack USB, Phishing Mail, Trojan...etc}.
+
+\paragraph{How to process and demand Ransomware, through secure channel, and verify it after payment done.}
+
+\paragraph{Techniques of Detections}
 
 % Conclusion
 \section{Conclusion}
-Work is going on
+Work is going on, on final Report it will be disclosed.
 
 \begin{algorithm}
 
     \SetAlgoNlRelativeSize{-1}
-    \caption{xyzzy}
+    \caption{AES CBC Encryption}
     \KwData{None}
     \KwResult{Hello, World!}
     \BlankLine
