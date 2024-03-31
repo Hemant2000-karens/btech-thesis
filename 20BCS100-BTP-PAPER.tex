@@ -15,11 +15,11 @@
 \usepackage{xcolor}
 \usepackage{csquotes}
 \usepackage{enumitem}
-\usepackage[style=authoryear, backend=biber]{biblatex}
+\usepackage[style=ieee, backend=biber]{biblatex}
 \usepackage[linesnumbered,ruled,vlined]{algorithm2e}
 \addbibresource{reference.bib}
+%\usepackage[style=authoryear]{biblatex}
 \usepackage{soul}
-
 % Define custom color for the abstract block
 \definecolor{abstractcolor}{RGB}{240,240,240}
 % Define header and footer
@@ -29,6 +29,9 @@
 \renewcommand{\footrulewidth}{0.5pt} % Add footer line
 \fancyfoot[C]{\thepage} % Page number in the center of the footer
 
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{amsmath}
 % Margins
 \geometry{letterpaper, margin= 1.55cm, columnsep=25pt } % Adjust as needed
 
@@ -43,7 +46,7 @@
         \vspace*{1cm}
         
         {\fontspec{EBGaramond-Bold.ttf}\LARGE Ransomware Detection Application} \\
-        \Large{Implementation of \\ {\fontspec{EBGaramond-SemiBold.ttf}Ransomware detection and mitigation using software-defined networking: The case of WannaCry} }
+        \Large{Implementation of \\ {\fontspec{EBGaramond-SemiBold.ttf}Ransomware detection and mitigation using software-defined networking: The case of WannaCry}}
         
         \vspace{0.6cm}
         
@@ -167,7 +170,7 @@
 
 \vspace*{0.5 cm}
     % \lipsum[1] % Generate dummy abstract text
-    {\fontspec{EBGaramond-Bold}Background:} Ransomware poses a severe threat to the security of digital assets, with a rising frequency of sophisticated attacks targeting individuals and organizations globally. The potential for significant financial and reputational damage underscores the urgent need for robust and proactive countermeasures. Traditional antivirus solutions often fall short in detecting evolving ransomware variants, necessitating the development of advanced detection applications.\textcite{kok2019ransomware}
+    {\fontspec{EBGaramond-Bold}Background:} Ransomware poses a severe threat to the security of digital assets, with a rising frequency of sophisticated attacks targeting individuals and organizations globally. The potential for significant financial and reputational damage underscores the urgent need for robust and proactive countermeasures. Traditional antivirus solutions often fall short in detecting evolving ransomware variants, necessitating the development of advanced detection applications.
     
     {\fontspec{EBGaramond-Bold}Aim:} The primary objective of this research is to design, implement, and evaluate a cutting-edge Ransomware Detection Application. Leveraging innovative techniques, including machine learning and behavioral analysis, our application aims to provide real-time detection and mitigation of ransomware threats. By enhancing the resilience of systems against emerging attack vectors, the goal is to fortify the cybersecurity posture of individuals and organizations in the face of evolving ransomware landscape.
     
@@ -292,7 +295,7 @@
 
 In the fight against ransomware, a comprehensive approach involving various detection techniques is essential. The following sections detail the methodologies employed, each with its strengths and weaknesses.
 
-We are trying to implement Ransomware Detection with differently approach, that no one might though about. In our detection Approach, we can develop some kind of algorithm and tactics which can scan, ransomware, and not only ransomware, but any kinds of malicious sect of code/ file, which can leads to execution of ransomware. 
+We are trying to implement Ransomware Detection with differently approach, that no one might though about. In our detection Approach, we can develop some kind of algorithm and tactics which can scan, ransomware, and not only ransomware, but any kinds of malicious sect of code/ file, which can leads to execution of ransomware. \cite{AKBANOV2019111}
 
 The execution of attacks on a node or within a network entails a systematic series of steps designed to optimize efficacy while minimizing the risk of detection. These steps encompass a structured approach to planning, reconnaissance, exploitation, and post-exploitation activities. Each phase is meticulously orchestrated to achieve specific objectives and maintain operational security. The methodology adheres to established principles of ethical hacking and penetration testing, ensuring that security vulnerabilities are identified and remediated effectively. Throughout this process, comprehensive documentation and reporting are maintained to facilitate remedial action and improve the overall security posture of the targeted system or network.
 
@@ -367,7 +370,7 @@ Incorporating a combination of these techniques provides a layered defense again
 
 \paragraph{We have created ransomware, by using Python as base Language and WindowsNT OS. As per instructions, we have tried to build it on Linux Environment, but after doing research, we have found that most of the ransomware is build and delivered on Windows Environment only, and of course in our Build, we are dependent on Packages like \hl{pywin32} \& \hl{pywin32-ctypes}, which is only available for Windows System Environment.}
 
-\paragraph{We are improving the quality and prototype into little real one, with educational Intention.}
+\paragraph{We have developed Ransomware(Wanna Cry), with basic code and using Python and cryptography, As real Wanna Cry Ransomware, uses Command and Control Method }
 
 
 % Results
@@ -396,20 +399,55 @@ Incorporating a combination of these techniques provides a layered defense again
 Work is going on, on final Report it will be disclosed.
 
 \begin{algorithm}
+\caption{AES CBC Encrypt}
+\begin{algorithmic}
+\Function{AES\_CBC\_Encrypt}{$\text{plaintext}, \text{key}, \text{iv}$}
+  \State $ \text{// Divide plaintext into 128-bit blocks} $
+  \State $ \text{blocks} \gets \text{splitBlocks(plaintext, 128)} $
+  \State $ \text{previousCiphertext} \gets \text{iv} $
+  \State $ \text{// Generate round keys for AES} $
+  \State $ \text{roundKeys} \gets \text{getRoundKeys(key)} $
+  \For{$\text{block}$ \textbf{in} $\text{blocks}$}
+    \State $ \text{// XOR plaintext block with previous ciphertext} $
+    \State $ \text{xoredBlock} \gets \text{xor(block, previousCiphertext)} $
+    \State $ \text{// Encrypt xored block using AES} $
+    \State $ \text{encryptedBlock} \gets \text{AES\_Encrypt(xoredBlock, roundKeys)} $
+    \State $ \text{// Update previous ciphertext for next block} $
+    \State $ \text{previousCiphertext} \gets \text{encryptedBlock} $
+  \EndFor
+  \State $ \text{// Combine encrypted blocks as ciphertext} $
+  \State $ \text{ciphertext} \gets \text{combineBlocks(encryptedBlock)} $
+  \State \Return $\text{ciphertext}$
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
 
-    \SetAlgoNlRelativeSize{-1}
-    \caption{AES CBC Encryption}
-    \KwData{None}
-    \KwResult{Hello, World!}
-    \BlankLine
-    
-    \While{true}{
-        Print("Hello, World!")\;
-        \If{Condition}{
-            DoSomething()\;
-        }
-    }
-    \hrule
+
+\begin{algorithm}
+\caption{AES CBC Decrypt}
+\begin{algorithmic}
+\Function{AES\_CBC\_Decrypt}{$\text{ciphertext}, \text{key}, \text{iv}$}
+  \State $ \text{// Split ciphertext into 128-bit blocks} $
+  \State $ \text{blocks} \gets \text{splitBlocks(ciphertext, 128)} $
+  \State $ \text{// Initialize previous ciphertext with IV} $
+  \State $ \text{previousCiphertext} \gets \text{iv} $
+  \State $ \text{// Loop through each ciphertext block} $
+  \State $ \text{decryptedBlocks} \gets [] $
+  \For{$\text{block}$ \textbf{in} $\text{blocks}$}
+    \State $ \text{// Decrypt ciphertext block using AES} $
+    \State $ \text{decryptedBlock} \gets \text{AES\_Decrypt(block, roundKeys)} $
+    \State $ \text{// XOR decrypted block with previous ciphertext} $
+    \State $ \text{xoredBlock} \gets \text{xor(decryptedBlock, previousCiphertext)} $
+    \State $ \text{// Update previous ciphertext for next block} $
+    \State $ \text{previousCiphertext} \gets \text{block} $
+    \State $ \text{// Append xored block to decrypted blocks} $
+    \State $ \text{append(decryptedBlocks, xoredBlock)} $
+  \EndFor
+  \State $ \text{// Combine decrypted blocks as plaintext} $
+  \State $ \text{plaintext} \gets \text{combineBlocks(decryptedBlocks)} $
+  \State \Return $\text{plaintext}$
+\EndFunction
+\end{algorithmic}
 \end{algorithm}
 
 
