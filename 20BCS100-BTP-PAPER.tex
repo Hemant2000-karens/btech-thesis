@@ -33,6 +33,8 @@
 \usepackage{algpseudocode}
 \usepackage{amsmath}
 \usepackage{forloop}
+\usepackage{afterpage}
+
 % Margins
 \geometry{letterpaper, margin= 1.55cm, columnsep=25pt } % Adjust as needed
 
@@ -379,9 +381,16 @@ Upon execution, the trojanized file presents itself innocuously as a typical JPG
 
 \section{Distribution and Detection Phase}
 
-In the Distribution and Detection Phase, our focus lies on executing the ransomware deployment strategy while ensuring effective detection measures are in place. To plant the ransomware on victim machines, we'll leverage a sophisticated network setup incorporating components like OpenFlow, OpenVSwitch, and an external controller. This setup enables dynamic network management and facilitates the orchestration of malicious activities. Through phishing campaigns and manual intrusion techniques, we'll exploit vulnerabilities in target systems to gain unauthorized access. Once inside the network, we'll utilize OpenFlow to manipulate network flows and route traffic to infected endpoints. OpenVSwitch will be instrumental in creating virtual network overlays, allowing for the seamless distribution of ransomware payloads while evading detection.
-
+In the Distribution and Detection Phase, our focus lies on executing the ransomware deployment strategy while ensuring effective detection measures are in place. To plant the ransomware on victim machines, we\'ll leverage a sophisticated network setup incorporating components like OpenFlow, OpenVSwitch, and an external controller. This setup enables dynamic network management and facilitates the orchestration of malicious activities. Through phishing campaigns and manual intrusion techniques, we\'ll exploit vulnerabilities in target systems to gain unauthorized access. Once inside the network, we'll utilize OpenFlow to manipulate network flows and route traffic to infected endpoints. OpenVSwitch will be instrumental in creating virtual network overlays, allowing for the seamless distribution of ransomware payloads while evading detection.
+\\
 In parallel, stringent detection mechanisms will be implemented to identify and mitigate ransomware threats. Intrusion Detection Systems (IDS) will be deployed to monitor network traffic for suspicious behavior patterns indicative of ransomware activity. Additionally, anomaly detection algorithms will be employed to flag deviations from normal network behavior. Integration with external threat intelligence sources will enhance detection capabilities by providing real-time insights into emerging threats. By combining advanced network management tools with robust detection mechanisms, we aim to effectively distribute ransomware payloads while minimizing the risk of detection and containment by security defenses.
+
+
+
+
+
+
+
 
 % Future Work
 
@@ -394,28 +403,23 @@ To illustrate these scenarios, our network setup encompasses various components,
 In the external attack scenario, adversaries exploit vulnerabilities in network defenses to gain unauthorized access. Phishing campaigns may lure unsuspecting users to click on malicious links or download infected attachments, enabling adversaries to plant ransomware on victim machines. Meanwhile, in the internal attack scenario, adversaries leverage insider access or compromised credentials to move laterally within the network, infecting additional endpoints with ransomware payloads.
 \\
 To visually represent these scenarios, we'll provide networking diagrams illustrating the network topology, including the placement of components like OpenFlow switches, OpenVSwitch instances, and the external controller. Additionally, we'll embed images showcasing the two attack scenarios, highlighting the pathways through which ransomware is distributed to victim machines. By presenting these visual aids, we aim to provide a comprehensive understanding of our distribution and detection strategy in both external and internal attack scenarios.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.5\textwidth]{example-image.jpg}
-    \caption{Example Image}
-    \label{fig:example}
+\\
+\begin{figure}[ht]
+    \includegraphics[width=0.5\textwidth]{Scene1.pdf}
+    \caption{Internal Attack}
+    \label{fig:Scene1}
+\vspace*{0.5 cm}
+    \includegraphics[width=0.5\textwidth]{Scene2.pdf}
+    \caption{External Attack}
+    \label{fig:scene2}
 \end{figure}
-
-
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.5\textwidth]{example-image.jpg}
-    \caption{Example Image}
-    \label{fig:example}
-\end{figure}
-
 
 % Conclusion
 \section{Conclusion}
 Work is going on, on final Report it will be disclosed.
 since our Detection and Mitigation System is not completed yet.
+
+
 % \begin{algorithm}
 % \caption{AES CBC Encrypt}
 % \begin{algorithmic}
