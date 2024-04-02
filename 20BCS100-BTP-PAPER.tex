@@ -32,6 +32,7 @@
 \usepackage{algorithm}
 \usepackage{algpseudocode}
 \usepackage{amsmath}
+\usepackage{forloop}
 % Margins
 \geometry{letterpaper, margin= 1.55cm, columnsep=25pt } % Adjust as needed
 
@@ -357,98 +358,123 @@ The execution of attacks on a node or within a network entails a systematic seri
     
 \end{enumerate}
 
-
-
-
 Incorporating a combination of these techniques provides a layered defense against ransomware, enhancing the likelihood of early detection and mitigation.
-
 
 %
 \section{Progress Update}
 
 \subsection{Creation and Testing of Ransomware}
 
-\paragraph{We have created ransomware, by using Python as base Language and WindowsNT OS. As per instructions, we have tried to build it on Linux Environment, but after doing research, we have found that most of the ransomware is build and delivered on Windows Environment only, and of course in our Build, we are dependent on Packages like \hl{pywin32} \& \hl{pywin32-ctypes}, which is only available for Windows System Environment.}
+We\'ve crafted ransomware leveraging Python on a WindowsNT OS. Initially, we attempted to develop it in a Linux environment, but research revealed that most ransomware operates exclusively on Windows. Our build relies on essential packages like \hl{pywin32} \& \hl{pywin32-ctypes}, exclusively available for Windows systems.
+\\
+Our ransomware, inspired by WannaCry, is coded using Python and cryptography. Similar to the actual WannaCry ransomware, our version utilizes a Command and Control (CnC) approach. However, implementing CnC for key provision and payment retrieval presents challenges, requiring a dedicated server setup. As setting up servers posed significant obstacles, we opted not to include the CnC functionality. Additionally, while ransomware can be perilous if misused, our development was purely educational. To prevent any unintended consequences, we disabled its actual functionality. Nonetheless, even in this dormant state, Windows Defender still detects and removes it.
 
-\paragraph{We have developed Ransomware(Wanna Cry), with basic code and using Python and cryptography, As real Wanna Cry Ransomware, uses Command and Control Method }
+\subsection{Steganography and Creation of Trojan}
 
+In our exploration of Steganography, we delved into concealing data within innocuous files to evade detection. Leveraging this technique, we embarked on creating a trojan by binding a malware executable with a JPG image using WinRAR\'s SFX features.
+\\
+To achieve this, we carefully encoded the malware executable within the pixels of the JPG image, ensuring it remained undetectable to casual observation. With WinRAR\'s SFX capabilities, we combined the concealed malware executable and the JPG image, creating a single self-extracting archive.
+\\
+Upon execution, the trojanized file presents itself innocuously as a typical JPG image. However, upon extraction, the malware executable is unleashed, potentially compromising the victim\'s system. This covert method of embedding malware within seemingly harmless files exemplifies the insidious nature of modern cyber threats.
 
-% Results
-\section{Results and Discussions}
-% \lipsum[13-16] % Generate dummy text
+\section{Distribution and Detection Phase}
 
-\subsection{Attack Performed}
-\paragraph{We have performed attack samples, and verified, screenshots will be in demo.}
+In the Distribution and Detection Phase, our focus lies on executing the ransomware deployment strategy while ensuring effective detection measures are in place. To plant the ransomware on victim machines, we'll leverage a sophisticated network setup incorporating components like OpenFlow, OpenVSwitch, and an external controller. This setup enables dynamic network management and facilitates the orchestration of malicious activities. Through phishing campaigns and manual intrusion techniques, we'll exploit vulnerabilities in target systems to gain unauthorized access. Once inside the network, we'll utilize OpenFlow to manipulate network flows and route traffic to infected endpoints. OpenVSwitch will be instrumental in creating virtual network overlays, allowing for the seamless distribution of ransomware payloads while evading detection.
 
-
+In parallel, stringent detection mechanisms will be implemented to identify and mitigate ransomware threats. Intrusion Detection Systems (IDS) will be deployed to monitor network traffic for suspicious behavior patterns indicative of ransomware activity. Additionally, anomaly detection algorithms will be employed to flag deviations from normal network behavior. Integration with external threat intelligence sources will enhance detection capabilities by providing real-time insights into emerging threats. By combining advanced network management tools with robust detection mechanisms, we aim to effectively distribute ransomware payloads while minimizing the risk of detection and containment by security defenses.
 
 % Future Work
 
 \section{Future Works}
 
-\subsection{Delivery of Ransomware}
+In the Distribution and Detection Phase, our strategy accounts for two distinct scenarios: external and internal attacks on victim systems. In the external attack scenario, adversaries from outside the network aim to infiltrate and compromise victim machines. This may involve exploiting vulnerabilities in network perimeter defenses or conducting phishing campaigns to trick users into downloading and executing malicious payloads. Conversely, in the internal attack scenario, adversaries already within the network leverage insider access or compromised credentials to propagate ransomware to additional endpoints.
+\\
+To illustrate these scenarios, our network setup encompasses various components, including OpenFlow, OpenVSwitch, and an external controller. OpenFlow facilitates dynamic network control, allowing us to manipulate network flows and route traffic to targeted endpoints. OpenVSwitch enables the creation of virtual network overlays, facilitating the seamless distribution of ransomware payloads while evading detection. An external controller orchestrates these activities, providing centralized management and coordination of network operations.
+\\
+In the external attack scenario, adversaries exploit vulnerabilities in network defenses to gain unauthorized access. Phishing campaigns may lure unsuspecting users to click on malicious links or download infected attachments, enabling adversaries to plant ransomware on victim machines. Meanwhile, in the internal attack scenario, adversaries leverage insider access or compromised credentials to move laterally within the network, infecting additional endpoints with ransomware payloads.
+\\
+To visually represent these scenarios, we'll provide networking diagrams illustrating the network topology, including the placement of components like OpenFlow switches, OpenVSwitch instances, and the external controller. Additionally, we'll embed images showcasing the two attack scenarios, highlighting the pathways through which ransomware is distributed to victim machines. By presenting these visual aids, we aim to provide a comprehensive understanding of our distribution and detection strategy in both external and internal attack scenarios.
 
-\paragraph{We are preparing and deciding method to devlier ransomware, like by physical Attack USB, Phishing Mail, Trojan...etc}.
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{example-image.jpg}
+    \caption{Example Image}
+    \label{fig:example}
+\end{figure}
 
-\paragraph{How to process and demand Ransomware, through secure channel, and verify it after payment done.}
 
-\paragraph{Techniques of Detections}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{example-image.jpg}
+    \caption{Example Image}
+    \label{fig:example}
+\end{figure}
+
 
 % Conclusion
 \section{Conclusion}
 Work is going on, on final Report it will be disclosed.
+since our Detection and Mitigation System is not completed yet.
+% \begin{algorithm}
+% \caption{AES CBC Encrypt}
+% \begin{algorithmic}
+% \Function{AES\_CBC\_Encrypt}{$\text{plaintext}, \text{key}, \text{iv}$}
+%   \State $ \text{// Divide plaintext into 128-bit blocks} $
+%   \State $ \text{blocks} \gets \text{splitBlocks(plaintext, 128)} $
+%   \State $ \text{previousCiphertext} \gets \text{iv} $
+%   \State $ \text{// Generate round keys for AES} $
+%   \State $ \text{roundKeys} \gets \text{getRoundKeys(key)} $
+%   \newcounter{BlockIndex}
+%   \setcounter{BlockIndex}{0}
+%   \loop
+%     \ifnum\value{BlockIndex}<\numexpr\lengthof{blocks}\relax
+%       \State $ \text{// XOR plaintext block with previous ciphertext} $
+%       \State $ \text{xoredBlock} \gets \text{xor(blocks[\arabic{BlockIndex}], previousCiphertext)} $
+%       \State $ \text{// Encrypt xored block using AES} $
+%       \State $ \text{encryptedBlock} \gets \text{AES\_Encrypt(xoredBlock, roundKeys)} $
+%       \State $ \text{// Update previous ciphertext for next block} $
+%       \State $ \text{previousCiphertext} \gets \text{encryptedBlock} $
+%       \stepcounter{BlockIndex}
+%   \repeat
+%   \State $ \text{// Combine encrypted blocks as ciphertext} $
+%   \State $ \text{ciphertext} \gets \text{combineBlocks(encryptedBlock)} $
+%   \State \Return $\text{ciphertext}$
+% \EndFunction
+% \end{algorithmic}
+% \end{algorithm}
 
-\begin{algorithm}
-\caption{AES CBC Encrypt}
-\begin{algorithmic}
-\Function{AES\_CBC\_Encrypt}{$\text{plaintext}, \text{key}, \text{iv}$}
-  \State $ \text{// Divide plaintext into 128-bit blocks} $
-  \State $ \text{blocks} \gets \text{splitBlocks(plaintext, 128)} $
-  \State $ \text{previousCiphertext} \gets \text{iv} $
-  \State $ \text{// Generate round keys for AES} $
-  \State $ \text{roundKeys} \gets \text{getRoundKeys(key)} $
-  \For{$\text{block}$ \textbf{in} $\text{blocks}$}
-    \State $ \text{// XOR plaintext block with previous ciphertext} $
-    \State $ \text{xoredBlock} \gets \text{xor(block, previousCiphertext)} $
-    \State $ \text{// Encrypt xored block using AES} $
-    \State $ \text{encryptedBlock} \gets \text{AES\_Encrypt(xoredBlock, roundKeys)} $
-    \State $ \text{// Update previous ciphertext for next block} $
-    \State $ \text{previousCiphertext} \gets \text{encryptedBlock} $
-  \EndFor
-  \State $ \text{// Combine encrypted blocks as ciphertext} $
-  \State $ \text{ciphertext} \gets \text{combineBlocks(encryptedBlock)} $
-  \State \Return $\text{ciphertext}$
-\EndFunction
-\end{algorithmic}
-\end{algorithm}
 
-
-\begin{algorithm}
-\caption{AES CBC Decrypt}
-\begin{algorithmic}
-\Function{AES\_CBC\_Decrypt}{$\text{ciphertext}, \text{key}, \text{iv}$}
-  \State $ \text{// Split ciphertext into 128-bit blocks} $
-  \State $ \text{blocks} \gets \text{splitBlocks(ciphertext, 128)} $
-  \State $ \text{// Initialize previous ciphertext with IV} $
-  \State $ \text{previousCiphertext} \gets \text{iv} $
-  \State $ \text{// Loop through each ciphertext block} $
-  \State $ \text{decryptedBlocks} \gets [] $
-  \For{$\text{block}$ \textbf{in} $\text{blocks}$}
-    \State $ \text{// Decrypt ciphertext block using AES} $
-    \State $ \text{decryptedBlock} \gets \text{AES\_Decrypt(block, roundKeys)} $
-    \State $ \text{// XOR decrypted block with previous ciphertext} $
-    \State $ \text{xoredBlock} \gets \text{xor(decryptedBlock, previousCiphertext)} $
-    \State $ \text{// Update previous ciphertext for next block} $
-    \State $ \text{previousCiphertext} \gets \text{block} $
-    \State $ \text{// Append xored block to decrypted blocks} $
-    \State $ \text{append(decryptedBlocks, xoredBlock)} $
-  \EndFor
-  \State $ \text{// Combine decrypted blocks as plaintext} $
-  \State $ \text{plaintext} \gets \text{combineBlocks(decryptedBlocks)} $
-  \State \Return $\text{plaintext}$
-\EndFunction
-\end{algorithmic}
-\end{algorithm}
+% \begin{algorithm}
+% \caption{AES CBC Decrypt}
+% \begin{algorithmic}
+% \Function{AES\_CBC\_Decrypt}{$\text{ciphertext}, \text{key}, \text{iv}$}
+%   \State $ \text{// Split ciphertext into 128-bit blocks} $
+%   \State $ \text{blocks} \gets \text{splitBlocks(ciphertext, 128)} $
+%   \State $ \text{// Initialize previous ciphertext with IV} $
+%   \State $ \text{previousCiphertext} \gets \text{iv} $
+%   \State $ \text{// Loop through each ciphertext block} $
+%   \State $ \text{decryptedBlocks} \gets [] $
+%   \newcounter{BlockIndex}
+%   \setcounter{BlockIndex}{0}
+%   \loop
+%     \ifnum\value{BlockIndex}<\numexpr\lengthof{blocks}\relax
+%       \State $ \text{// Decrypt ciphertext block using AES} $
+%       \State $ \text{decryptedBlock} \gets \text{AES\_Decrypt(blocks[\arabic{BlockIndex}], roundKeys)} $
+%       \State $ \text{// XOR decrypted block with previous ciphertext} $
+%       \State $ \text{xoredBlock} \gets \text{xor(decryptedBlock, previousCiphertext)} $
+%       \State $ \text{// Update previous ciphertext for next block} $
+%       \State $ \text{previousCiphertext} \gets \text{blocks[\arabic{BlockIndex}]} $
+%       \State $ \text{// Append xored block to decrypted blocks} $
+%       \State $ \text{append(decryptedBlocks, xoredBlock)} $
+%       \stepcounter{BlockIndex}
+%   \repeat
+%   \State $ \text{// Combine decrypted blocks as plaintext} $
+%   \State $ \text{plaintext} \gets \text{combineBlocks(decryptedBlocks)} $
+%   \State \Return $\text{plaintext}$
+% \EndFunction
+% \end{algorithmic}
+% \end{algorithm}
 
 
 \twocolumn[

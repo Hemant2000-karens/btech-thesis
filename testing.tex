@@ -1,0 +1,11 @@
+\documentclass{article}
+\usepackage{forloop}
+
+\begin{document}
+
+\newcounter{LoopIndex}
+\forloop{LoopIndex}{1}{\value{LoopIndex} < 5}{
+    This is iteration \arabic{LoopIndex}.\par
+}
+
+\end{document}
