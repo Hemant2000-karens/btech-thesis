@@ -5,18 +5,31 @@
 \hyphenation{op-ti-mi-za-tion}
 \usepackage{hologo}% to access the XeTeX logo via \hologo{XeLaTeX}
 \usepackage{fontspec}
-\setmainfont{EBGaramond-VariableFont_wght.ttf} % Times New Roman font
+\usepackage{ebgaramond}
+
+\newfontfamily\englishtowne{EnglishTowne}[
+  Path = fonts/,
+  Extension = .ttf,
+]
+
+\newfontfamily\anglican{AnglicanText-Regular}[
+    Path = fonts/,
+    Extension = .ttf,
+]
+
+
+
 \usepackage{geometry}
 \usepackage{graphicx}
 \usepackage{lipsum} % For generating dummy text
 \usepackage[english]{babel}
 \usepackage{fancyhdr}
-\usepackage{multicol}
+% \usepackage{multicol}
 \usepackage{xcolor}
 \usepackage{csquotes}
 \usepackage{enumitem}
 \usepackage[style=ieee, backend=biber]{biblatex}
-\usepackage[linesnumbered,ruled,vlined]{algorithm2e}
+% \usepackage[linesnumbered,ruled,vlined]{algorithm2e}
 \addbibresource{reference.bib}
 %\usepackage[style=authoryear]{biblatex}
 \usepackage{soul}
@@ -29,40 +42,42 @@
 \renewcommand{\footrulewidth}{0.5pt} % Add footer line
 \fancyfoot[C]{\thepage} % Page number in the center of the footer
 
-\usepackage{algorithm}
+% \usepackage{algorithm}
 \usepackage{algpseudocode}
 \usepackage{amsmath}
 \usepackage{forloop}
 \usepackage{afterpage}
 
 % Margins
-\geometry{letterpaper, margin= 1.55cm, columnsep=25pt } % Adjust as needed
+\geometry{letterpaper, margin= 1.55cm, columnsep= 25pt } % Adjust as needed
 
 % Line spacing
 \linespread{1.25}
 
 \begin{document}
 
+
+
 %  Main Page 1 
 \begin{titlepage}
     \begin{center}
         \vspace*{1cm}
         
-        {\fontspec{EBGaramond-Bold.ttf}\LARGE Ransomware Detection Application} \\
-        \Large{Implementation of \\ {\fontspec{EBGaramond-SemiBold.ttf}Ransomware detection and mitigation using software-defined networking: The case of WannaCry}}
+        \textbf{\LARGE Ransomware Detection Application} \\
+        \Large{Implementation of \\ \textbf{\textit{Ransomware detection and mitigation using software-defined networking: The case of WannaCry}}}
         
         \vspace{0.6cm}
         
         \Large by
         
-        {\fontspec{EBGaramond-Bold.ttf}\Large Hemant Kumar} \\
+        \textbf{\Large Hemant Kumar} \\
         (Roll No. 20BCS100)
         
         \vspace{1cm}
         
         \Large Supervisor:
         
-        {\fontspec{EBGaramond-Bold.ttf}\Large Dr. Neelam Dayal }\\
+        \textbf{\Large Dr. Neelam Dayal }\\
             (Assistant Professor) \\
         Computer Science and Engineering \\
         PDPM IIITDM Jabalpur
@@ -77,7 +92,7 @@
         \vfill
         
         % Institute emblem
-        \includegraphics[width=30mm]{logo_college copy.png}
+        \includegraphics[width=30mm]{images/logo_college copy.png}
         
         \vspace{0.5cm}
         
@@ -94,14 +109,14 @@
     \begin{center}
         \vspace*{1cm}
         
-        {\fontspec{EnglishTowne.ttf} \LARGE Acknowledgement}
+        {\englishtowne \LARGE Acknowledgement}
         
         \vspace{1.2cm}
         
         % Your acknowledgment paragraph goes here
-       \large I would like to express my sincere gratitude to all the people who contributed in some way to the work described in this Project. Primarily I thanks to my respected supervisor, {\fontspec{EBGaramond-Bold.ttf}Dr. Neelam Dayal}, Assistant Professor in Computer Science and Engineering department, during my tenure of {\fontspec{EBGaramond-Bold.ttf}BTP}, she contributed to an enriching college experience by giving me intellectual freedom in my work, providing me inspiration and motivation, engaging me with new ideas, and demanding a high quality of work in all my endeavors. It was a matter of great felicity and privilege for me to work under his auspices. Additionally, I would like to thanks {\fontspec{EBGaramond-Bold.ttf}Dr. Abhishek Verma} (Assistant Professor), I.T Deptt. from the {\fontspec{EBGaramond-Bold.ttf}BabasahEB Bhimrao Ambedkar University, Lucknow} for their interest in my work, for extending their valuable time and support throughout my Project.
+       \large I would like to express my sincere gratitude to all the people who contributed in some way to the work described in this Project. Primarily I thanks to my respected supervisor, \textbf{Dr. Neelam Dayal}, Assistant Professor in Computer Science and Engineering department, during my tenure of \textbf{BTP}, she contributed to an enriching college experience by giving me intellectual freedom in my work, providing me inspiration and motivation, engaging me with new ideas, and demanding a high quality of work in all my endeavors. It was a matter of great felicity and privilege for me to work under his auspices. Additionally, I would like to thanks \textbf{Dr. Abhishek Verma} (Assistant Professor), I.T Deptt. from the \textbf{BabasahEB Bhimrao Ambedkar University, Lucknow} for their interest in my work, for extending their valuable time and support throughout my Project.
 
-       I owe special thanks to my Project Partner {\fontspec{EBGaramond-Bold.ttf}Chaitanya Mandi, Roll-no: 20BCS062} for his support and suggestions that kept me motivated to accomplish my research work during my course duration.  I would like to thanks my all seniors, of the Computer Science and Engineering Department including the non-teaching staff with whom I got the opportunity to work in a healthy and joyful environment.
+       I owe special thanks to my Project Partner \textbf{Chaitanya Mandi, Roll-no: 20BCS062} for his support and suggestions that kept me motivated to accomplish my research work during my course duration.  I would like to thanks my all seniors, of the Computer Science and Engineering Department including the non-teaching staff with whom I got the opportunity to work in a healthy and joyful environment.
 
        Finally, I would like to acknowledge my beloved family members who supported me during my time here. I am really obliged for their constant love and support.
         % Add any additional acknowledgments here
@@ -113,7 +128,7 @@
         \vspace{1cm} % Adjust the vertical space after the line
         
         % Your name on the right-align
-    \hfill {\fontspec{EBGaramond-Bold.ttf}Hemant Kumar}
+    \hfill \textbf{Hemant Kumar}
         
         % \vfill % Fill the remaining vertical space
         
@@ -129,12 +144,12 @@
     \begin{center}
         \vspace*{1cm}
         
-        {\fontspec{EnglishTowne.ttf}\LARGE Certificate}
+        {\englishtowne \LARGE Certificate}
         
         \vspace{1.2cm}
         
         % Your acknowledgment paragraph goes here
-       \large This is to certify that the Report entitled, {\fontspec{EBGaramond-bold} "Ransomeware Detection Application"}, submitted by {\fontspec{EBGaramond-bold} Hemant Kumar, Roll No. 20BCS100} in partial fulfillment of the requirements for the award of {\fontspec{EBGaramond-bold} B.Tech Degree in Computer Science and Engineering}, at PDPM Indian Institute of Information Technology, Design and Manufacturing Jabalpur is an authentic work carried out by him under my supervision and guidance.
+       \large This is to certify that the Report entitled, \textbf{"Ransomeware Detection Application"}, submitted by \textbf{Hemant Kumar, Roll No. 20BCS100} in partial fulfillment of the requirements for the award of \textbf{ B.Tech Degree in Computer Science and Engineering}, at PDPM Indian Institute of Information Technology, Design and Manufacturing Jabalpur is an authentic work carried out by him under my supervision and guidance.
     
     
         To the best of my knowledge, the matter embodied in the thesis has not been submitted elsewhere to any other university/institute for the award of any other degree.
@@ -145,9 +160,9 @@
          
     \noindent
     \begin{tabular}{@{}ll@{}}
-        {\fontspec{EBGaramond-Bold} Dr. Neelam Dayal} & \hfill {\fontspec{EBGaramond-Bold} {{2024-02-22}}} \\
+        \textbf{Dr. Neelam Dayal} & \hfill\textbf{{{2024-02-22}}} \\
         \large Assistant Professor & \\
-        \parbox[t]{0.57\textwidth}{%
+        \parbox[t]{0.7\textwidth}{%
             Computer Science and Engineering Discipline, \\
             PDPM Indian Institute of Information Technology, Design and Manufacturing, Jabalpur, M.P, India-482005
         }
@@ -173,13 +188,13 @@
 
 \vspace*{0.5 cm}
     % \lipsum[1] % Generate dummy abstract text
-    {\fontspec{EBGaramond-Bold}Background:} Ransomware poses a severe threat to the security of digital assets, with a rising frequency of sophisticated attacks targeting individuals and organizations globally. The potential for significant financial and reputational damage underscores the urgent need for robust and proactive countermeasures. Traditional antivirus solutions often fall short in detecting evolving ransomware variants, necessitating the development of advanced detection applications.
+    \textbf{Background:} Ransomware poses a severe threat to the security of digital assets, with a rising frequency of sophisticated attacks targeting individuals and organizations globally. The potential for significant financial and reputational damage underscores the urgent need for robust and proactive countermeasures. Traditional antivirus solutions often fall short in detecting evolving ransomware variants, necessitating the development of advanced detection applications.
     
-    {\fontspec{EBGaramond-Bold}Aim:} The primary objective of this research is to design, implement, and evaluate a cutting-edge Ransomware Detection Application. Leveraging innovative techniques, including machine learning and behavioral analysis, our application aims to provide real-time detection and mitigation of ransomware threats. By enhancing the resilience of systems against emerging attack vectors, the goal is to fortify the cybersecurity posture of individuals and organizations in the face of evolving ransomware landscape.
+    \textbf{Aim:} The primary objective of this research is to design, implement, and evaluate a cutting-edge Ransomware Detection Application. Leveraging innovative techniques, including machine learning and behavioral analysis, our application aims to provide real-time detection and mitigation of ransomware threats. By enhancing the resilience of systems against emerging attack vectors, the goal is to fortify the cybersecurity posture of individuals and organizations in the face of evolving ransomware landscape.
     
-    {\fontspec{EBGaramond-Bold}Conclusion:} The developed Ransomware Detection Application showcases promising results in effectively identifying and neutralizing ransomware threats. Through extensive testing and validation, our application demonstrates a high level of accuracy and efficiency in differentiating normal user behavior from malicious activities associated with ransomware attacks. The successful deployment of this solution contributes significantly to the ongoing efforts to secure digital environments against the menace of ransomware.
+    \textbf{Conclusion:} The developed Ransomware Detection Application showcases promising results in effectively identifying and neutralizing ransomware threats. Through extensive testing and validation, our application demonstrates a high level of accuracy and efficiency in differentiating normal user behavior from malicious activities associated with ransomware attacks. The successful deployment of this solution contributes significantly to the ongoing efforts to secure digital environments against the menace of ransomware.
     
-    {\fontspec{EBGaramond-Bold}Keywords:} Ransomware, Detection Application, Cybersecurity, Machine Learning, Behavioral Analysis, Threat Mitigation, Real-time Protection, Cyber Threats, Digital Security, Antivirus Solutions.
+    \textbf{Keywords:} Ransomware, Detection Application, Cybersecurity, Machine Learning, Behavioral Analysis, Threat Mitigation, Real-time Protection, Cyber Threats, Digital Security, Antivirus Solutions.
     
 \end{abstract}
 
@@ -197,15 +212,15 @@
 
     Ransomware, at its core, is a form of cyber extortion wherein malicious actors leverage advanced encryption algorithms to restrict access to files or entire systems. The victim, often left with no recourse, is coerced into paying a ransom, typically in cryptocurrency, to obtain the decryption key. This nefarious practice has given rise to various types of ransomware, each exhibiting distinct characteristics and complexities.
     
-    {\fontspec{EBGaramond-MediumItalic}Encrypting Ransomware:} This variant employs robust encryption algorithms, rendering files inaccessible until a ransom is paid. Notable examples include CryptoLocker and WannaCry.
+    \textbf{\textit{Encrypting Ransomware:}} This variant employs robust encryption algorithms, rendering files inaccessible until a ransom is paid. Notable examples include CryptoLocker and WannaCry.
 
-    {\fontspec{EBGaramond-MediumItalic}Locker Ransomware:} Instead of encrypting files, locker ransomware locks users out of their systems, demanding payment for access restoration. Instances like the FBI virus and Winlocker fall into this category.
+    \textbf{\textit{Locker Ransomware:}} Instead of encrypting files, locker ransomware locks users out of their systems, demanding payment for access restoration. Instances like the FBI virus and Winlocker fall into this category.
 
-    {\fontspec{EBGaramond-MediumItalic}Scareware:} While not encrypting files, scareware falsely claims the presence of malware, tricking users into paying for non-existent security solutions.
+    \textbf{\textit{Scareware:}} While not encrypting files, scareware falsely claims the presence of malware, tricking users into paying for non-existent security solutions.
 
-    {\fontspec{EBGaramond-MediumItalic}Mobile Ransomware:} Targeting mobile devices, this variant demands payment for decrypting files or unlocking the device. Svpeng and Android Defender are prominent examples.
+    \textbf{\textit{Mobile Ransomware:}} Targeting mobile devices, this variant demands payment for decrypting files or unlocking the device. Svpeng and Android Defender are prominent examples.
     
-    {\fontspec{EBGaramond-MediumITalic}Doxware/Leakware:} This type of ransomware not only encrypts files but also threatens to release sensitive information to the public if the ransom is not paid. It adds a layer of extortion by leveraging the fear of data exposure.
+    \textbf{\textit{Doxware/Leakware:}} This type of ransomware not only encrypts files but also threatens to release sensitive information to the public if the ransom is not paid. It adds a layer of extortion by leveraging the fear of data exposure.
     
     Ransomware works in several stages, first stage is infection in this ransomware typically gain the access to a system through phishing emails containing malicious attachments, compromised websites and exploiting vulnerabilities in software. Once executed it starts its malicious activities.Second stage is encryption, One common type of ransomware encrypts the victim's files using strong encryption algorithms. This renders the files inaccessible without the decryption key, which only the attacker possesses. After encrypting the files, the ransomware displays a ransom note informing the victim of the encryption and demanding payment, often in cryptocurrency like Bitcoin, Ethereum, or Monero. The note typically includes instructions on how to pay the ransom and obtain the decryption key. If the victim decides to pay the ransom, they follow the instructions provided in the ransom note to transfer the cryptocurrency to the attacker's wallet. However, there is no guarantee that paying the ransom will result in the decryption key being provided, and it may even encourage further attacks. In some cases, victims receive a decryption key after paying the ransom, allowing them to regain access to their files. However, there have been instances where the decryption key provided was faulty or the attacker disappeared after receiving payment, leaving the victim without recourse.
     
@@ -214,7 +229,7 @@
 % Requirement Analysis
 \section{Requirement Analysis}
 
-\subsection{\fontspec{EBGaramond-MediumItalic}Stakeholders' Requirements:}
+\subsection{\textbf{\textit{Stakeholders' Requirements:}}}
     \begin{enumerate}[label=\arabic*.]
     \item End Users (Individuals and Organizations):
         \begin{itemize} 
@@ -233,7 +248,7 @@
     \end{enumerate}
 
     
-\subsection{\fontspec{EBGaramond-MediumItalic}Functional Requirements:}
+\subsection{\textbf{\textit{Functional Requirements:}}}
 
 \begin{enumerate}[label=\arabic*.]
     \item Ransomware Detection:
@@ -257,7 +272,7 @@
            
 \end{enumerate}
 
-\subsection{\fontspec{EBGaramond-MediumItalic}Non-Functional Requirements:}
+\subsection{\textbf{\textit{Non-Functional Requirements:}}}
 
 \begin{enumerate}
     \item Performance:
@@ -285,9 +300,9 @@
 
 % Image Embed
 \begin{figure*}[ht]
-  \includegraphics[width=\textwidth, height= 8 cm]{20180214-Free-Ransomware-1.png} % Replace example-image with your actual image file
+  \includegraphics[width=\textwidth, height= 8.5 cm]{images/20180214-Free-Ransomware-1.png} % Replace example-image with your actual image file
   \caption{Generic working of Ransomware}
-  \label{fig:my_label}
+  \label{fig:Working of Ransomware}
 \end{figure*}
 
 %
@@ -372,7 +387,6 @@ We\'ve crafted ransomware leveraging Python on a WindowsNT OS. Initially, we att
 Our ransomware, inspired by WannaCry, is coded using Python and cryptography. Similar to the actual WannaCry ransomware, our version utilizes a Command and Control (CnC) approach. However, implementing CnC for key provision and payment retrieval presents challenges, requiring a dedicated server setup. As setting up servers posed significant obstacles, we opted not to include the CnC functionality. Additionally, while ransomware can be perilous if misused, our development was purely educational. To prevent any unintended consequences, we disabled its actual functionality. Nonetheless, even in this dormant state, Windows Defender still detects and removes it.
 
 \subsection{Steganography and Creation of Trojan}
-
 In our exploration of Steganography, we delved into concealing data within innocuous files to evade detection. Leveraging this technique, we embarked on creating a trojan by binding a malware executable with a JPG image using WinRAR\'s SFX features.
 \\
 To achieve this, we carefully encoded the malware executable within the pixels of the JPG image, ensuring it remained undetectable to casual observation. With WinRAR\'s SFX capabilities, we combined the concealed malware executable and the JPG image, creating a single self-extracting archive.
@@ -384,13 +398,6 @@ Upon execution, the trojanized file presents itself innocuously as a typical JPG
 In the Distribution and Detection Phase, our focus lies on executing the ransomware deployment strategy while ensuring effective detection measures are in place. To plant the ransomware on victim machines, we\'ll leverage a sophisticated network setup incorporating components like OpenFlow, OpenVSwitch, and an external controller. This setup enables dynamic network management and facilitates the orchestration of malicious activities. Through phishing campaigns and manual intrusion techniques, we\'ll exploit vulnerabilities in target systems to gain unauthorized access. Once inside the network, we'll utilize OpenFlow to manipulate network flows and route traffic to infected endpoints. OpenVSwitch will be instrumental in creating virtual network overlays, allowing for the seamless distribution of ransomware payloads while evading detection.
 \\
 In parallel, stringent detection mechanisms will be implemented to identify and mitigate ransomware threats. Intrusion Detection Systems (IDS) will be deployed to monitor network traffic for suspicious behavior patterns indicative of ransomware activity. Additionally, anomaly detection algorithms will be employed to flag deviations from normal network behavior. Integration with external threat intelligence sources will enhance detection capabilities by providing real-time insights into emerging threats. By combining advanced network management tools with robust detection mechanisms, we aim to effectively distribute ransomware payloads while minimizing the risk of detection and containment by security defenses.
-
-
-
-
-
-
-
 
 % Future Work
 
@@ -405,14 +412,22 @@ In the external attack scenario, adversaries exploit vulnerabilities in network 
 To visually represent these scenarios, we'll provide networking diagrams illustrating the network topology, including the placement of components like OpenFlow switches, OpenVSwitch instances, and the external controller. Additionally, we'll embed images showcasing the two attack scenarios, highlighting the pathways through which ransomware is distributed to victim machines. By presenting these visual aids, we aim to provide a comprehensive understanding of our distribution and detection strategy in both external and internal attack scenarios.
 \\
 \begin{figure}[ht]
-    \includegraphics[width=0.5\textwidth]{Scene1.pdf}
+    \includegraphics[width=0.5\textwidth]{images/Scene1.pdf}
     \caption{Internal Attack}
     \label{fig:Scene1}
 \vspace*{0.5 cm}
-    \includegraphics[width=0.5\textwidth]{Scene2.pdf}
+    \includegraphics[width=0.5\textwidth]{images/Scene2.pdf}
     \caption{External Attack}
     \label{fig:scene2}
 \end{figure}
+
+
+\section{After MidSem Evaluations}
+On 7th April 2024, we had Mid sem evaluation, and we presented our Report and PPT Slides to Panel, they discussed and asked about working principle, what your motive, how you are doing future planning, what's your vision to do in detection for future works.
+
+\subsection{Setting up OVSwitch/ OpenFlow}
+
+
 
 % Conclusion
 \section{Conclusion}
@@ -420,65 +435,6 @@ Work is going on, on final Report it will be disclosed.
 since our Detection and Mitigation System is not completed yet.
 
 
-% \begin{algorithm}
-% \caption{AES CBC Encrypt}
-% \begin{algorithmic}
-% \Function{AES\_CBC\_Encrypt}{$\text{plaintext}, \text{key}, \text{iv}$}
-%   \State $ \text{// Divide plaintext into 128-bit blocks} $
-%   \State $ \text{blocks} \gets \text{splitBlocks(plaintext, 128)} $
-%   \State $ \text{previousCiphertext} \gets \text{iv} $
-%   \State $ \text{// Generate round keys for AES} $
-%   \State $ \text{roundKeys} \gets \text{getRoundKeys(key)} $
-%   \newcounter{BlockIndex}
-%   \setcounter{BlockIndex}{0}
-%   \loop
-%     \ifnum\value{BlockIndex}<\numexpr\lengthof{blocks}\relax
-%       \State $ \text{// XOR plaintext block with previous ciphertext} $
-%       \State $ \text{xoredBlock} \gets \text{xor(blocks[\arabic{BlockIndex}], previousCiphertext)} $
-%       \State $ \text{// Encrypt xored block using AES} $
-%       \State $ \text{encryptedBlock} \gets \text{AES\_Encrypt(xoredBlock, roundKeys)} $
-%       \State $ \text{// Update previous ciphertext for next block} $
-%       \State $ \text{previousCiphertext} \gets \text{encryptedBlock} $
-%       \stepcounter{BlockIndex}
-%   \repeat
-%   \State $ \text{// Combine encrypted blocks as ciphertext} $
-%   \State $ \text{ciphertext} \gets \text{combineBlocks(encryptedBlock)} $
-%   \State \Return $\text{ciphertext}$
-% \EndFunction
-% \end{algorithmic}
-% \end{algorithm}
-
-
-% \begin{algorithm}
-% \caption{AES CBC Decrypt}
-% \begin{algorithmic}
-% \Function{AES\_CBC\_Decrypt}{$\text{ciphertext}, \text{key}, \text{iv}$}
-%   \State $ \text{// Split ciphertext into 128-bit blocks} $
-%   \State $ \text{blocks} \gets \text{splitBlocks(ciphertext, 128)} $
-%   \State $ \text{// Initialize previous ciphertext with IV} $
-%   \State $ \text{previousCiphertext} \gets \text{iv} $
-%   \State $ \text{// Loop through each ciphertext block} $
-%   \State $ \text{decryptedBlocks} \gets [] $
-%   \newcounter{BlockIndex}
-%   \setcounter{BlockIndex}{0}
-%   \loop
-%     \ifnum\value{BlockIndex}<\numexpr\lengthof{blocks}\relax
-%       \State $ \text{// Decrypt ciphertext block using AES} $
-%       \State $ \text{decryptedBlock} \gets \text{AES\_Decrypt(blocks[\arabic{BlockIndex}], roundKeys)} $
-%       \State $ \text{// XOR decrypted block with previous ciphertext} $
-%       \State $ \text{xoredBlock} \gets \text{xor(decryptedBlock, previousCiphertext)} $
-%       \State $ \text{// Update previous ciphertext for next block} $
-%       \State $ \text{previousCiphertext} \gets \text{blocks[\arabic{BlockIndex}]} $
-%       \State $ \text{// Append xored block to decrypted blocks} $
-%       \State $ \text{append(decryptedBlocks, xoredBlock)} $
-%       \stepcounter{BlockIndex}
-%   \repeat
-%   \State $ \text{// Combine decrypted blocks as plaintext} $
-%   \State $ \text{plaintext} \gets \text{combineBlocks(decryptedBlocks)} $
-%   \State \Return $\text{plaintext}$
-% \EndFunction
-% \end{algorithmic}
-% \end{algorithm}
 
 
 \twocolumn[
