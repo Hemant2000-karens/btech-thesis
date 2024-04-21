@@ -4,9 +4,21 @@
 \usepackage{parskip}
 \hyphenation{op-ti-mi-za-tion}
 \usepackage{hologo}% to access the XeTeX logo via \hologo{XeLaTeX}
+
+
 \usepackage{fontspec}
 \usepackage{ebgaramond}
 
+\usepackage{titlesec}
+
+\titleformat{\section}
+  {\normalfont\fontsize{18}{15}\selectfont\bfseries}
+  {\thesection}{6 pt}{}
+
+\titleformat{\subsection}
+  {\normalfont\fontsize{14}{13}\itshape\mdseries}
+  {\thesubsection}{8 pt}{}
+  
 \newfontfamily\englishtowne{EnglishTowne}[
   Path = fonts/,
   Extension = .ttf,
@@ -229,7 +241,7 @@
 % Requirement Analysis
 \section{Requirement Analysis}
 
-\subsection{\textbf{\textit{Stakeholders' Requirements:}}}
+\subsection{Stakeholders' Requirements:}
     \begin{enumerate}[label=\arabic*.]
     \item End Users (Individuals and Organizations):
         \begin{itemize} 
@@ -248,7 +260,7 @@
     \end{enumerate}
 
     
-\subsection{\textbf{\textit{Functional Requirements:}}}
+\subsection{Functional Requirements:}
 
 \begin{enumerate}[label=\arabic*.]
     \item Ransomware Detection:
@@ -272,7 +284,7 @@
            
 \end{enumerate}
 
-\subsection{\textbf{\textit{Non-Functional Requirements:}}}
+\subsection{Non-Functional Requirements:}
 
 \begin{enumerate}
     \item Performance:
