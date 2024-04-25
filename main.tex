@@ -125,7 +125,7 @@
 %  Title page Header
 \begin{titlepage}
     \begin{center}
-        \vspace*{1cm}
+        \vspace*{0.5cm}
         
         \textbf{\LARGE Ransomware Detection Application} \\
         \Large{Implementation of \\ \textbf{\textit{Ransomware detection and mitigation using software-defined networking: The case of WannaCry}}}
@@ -137,7 +137,7 @@
         \textbf{\Large Hemant Kumar} \\
         (Roll No. 20BCS100)
         
-        \vspace{1cm}
+        \vspace{0.8cm}
         
         \Large Supervisor:
         
@@ -146,7 +146,7 @@
         Computer Science and Engineering \\
         PDPM IIITDM Jabalpur
         
-        \vspace{1cm}
+        \vspace{0.8cm}
         
         % External Supervisor(s):  
         
@@ -171,6 +171,8 @@
 
 \newpage
     \begin{center}
+    \phantomsection % Create a phantom section for accurate hyperlinking
+        \addcontentsline{toc}{section}{Approval Sheet}
         \vspace*{1cm}
         
         \LARGE Approval Sheet
@@ -184,14 +186,14 @@
         
         
     \end{center}
-    \phantomsection % Create a phantom section for accurate hyperlinking
-    \addcontentsline{toc}{section}{Approval Sheet}
+    
 
 
 \newpage
     \begin{center}
+    \phantomsection % Create a phantom section for accurate hyperlinking
+        \addcontentsline{toc}{section}{Declaration}
         \vspace*{1cm}
-
             \LARGE Declaration
 
             \vspace{1.2cm}
@@ -203,7 +205,8 @@
 \newpage
     \begin{center}
         \vspace*{1cm}
-        
+        \phantomsection % Create a phantom section for accurate hyperlinking
+        \addcontentsline{toc}{section}{Certificate}
         {\englishtowne \LARGE Certificate}
         
         \vspace{1.2cm}
@@ -233,16 +236,15 @@
        \vspace{2cm}
         
     \end{center}
-    \phantomsection % Create a phantom section for accurate hyperlinking
-    \addcontentsline{toc}{section}{Certificate}
-
+    
 
 
 
 \newpage
     \begin{center}
+    \phantomsection % Create a phantom section for accurate hyperlinking
+        \addcontentsline{toc}{section}{Acknowledgement}
         \vspace*{1cm}
-        
         {\englishtowne \LARGE Acknowledgement}
         
         \vspace{1.2cm}
@@ -269,12 +271,13 @@
         % Institute emblem (if needed)
         
     \end{center}
-    \phantomsection % Create a phantom section for accurate hyperlinking
-    \addcontentsline{toc}{section}{Acknowledgement}
+    
 
 
 \newpage
     \begin{center}
+    \phantomsection % Create a phantom section for accurate hyperlinking
+        \addcontentsline{toc}{section}{Abstract}
         \vspace*{1cm}
             \hrule
                \begin{abstract}
@@ -298,25 +301,31 @@
         \vspace{1.2cm}
         
     \end{center}
-    \phantomsection % Create a phantom section for accurate hyperlinking
-    \addcontentsline{toc}{section}{Abstract}
+    
 
 
 \newpage
     \begin{center}
         \vspace*{1cm}
-        
-            \LARGE Lists of Figure and Tables
-        
+        \phantomsection % Create a phantom section for accurate hyperlinking
+        \addcontentsline{toc}{section}{Lists of Figure and Tables}
+            \section*{Lists of Figure and Tables}
+            % \listoffigures
+                % \clearpage
+
+            % \listoftables
+                % \clearpage
+                
         \vspace{1.2cm}
         
     \end{center}
-    \phantomsection % Create a phantom section for accurate hyperlinking
-    \addcontentsline{toc}{section}{Lists of Figure and Tables}
+    
 
 
 \newpage
     \begin{center}
+    \phantomsection % Create a phantom section for accurate hyperlinking
+        \addcontentsline{toc}{section}{List of Abbreviation}
         \vspace*{1cm}
         
             \LARGE List of Abbreviation
@@ -324,8 +333,7 @@
         \vspace{1.2cm}
         
     \end{center}
-    \phantomsection % Create a phantom section for accurate hyperlinking
-    \addcontentsline{toc}{section}{List of Abbreviation}
+    
 
 
 \newpage
@@ -337,13 +345,16 @@
             \addcontentsline{toc}{section}{Table of Content}
     \end{center}
 
+
 \newpage
+% \pagenumbering{arabic}
 \section*{Chapter 1}
-\vspace*{1.2 cm}
 \addcontentsline{toc}{section}{Chapter 1}
+\vspace*{1.2 cm}
+
     \section{Introduction}
 
-    In an era dominated by digital connectivity, the persistent threat of ransomware looms large, posing a formidable challenge to the security of individuals and organizations alike. Ransomware, a malicious software that encrypts or locks files and demands a ransom for their release, has evolved into a sophisticated and dynamic cyber threat. Understanding the nuances of ransomware is pivotal in developing effective countermeasures to safeguard against its pernicious impacts.
+    In an era dominated by digital connectivity, the persistent threat of ransomware looms large, posing a formidable challenge to the security of individuals and organizations alike. Ransomware, a malicious software that encrypts or locks files and demands a ransom for their release, has evolved into a sophisticated and dynamic cyber threat. Understanding the nuances of ransomware is pivotal in developing effective countermeasures to safeguard against its pernicious impacts.\cite{AKBANOV2019111}
 
     Ransomware, at its core, is a form of cyber extortion wherein malicious actors leverage advanced encryption algorithms to restrict access to files or entire systems. The victim, often left with no recourse, is coerced into paying a ransom, typically in cryptocurrency, to obtain the decryption key. This nefarious practice has given rise to various types of ransomware, each exhibiting distinct characteristics and complexities.
     
@@ -363,7 +374,20 @@
 
     \subsection{Motivation and Problem Statement}
 
-\cite{AKBANOV2019111}
+
+\newpage
+\section*{Chapter 2}
+\addcontentsline{toc}{section}{Chapter 2}
+\vspace*{1.2 cm}
+
+    \section{Literature Review}
+
+
+
+
+    \subsection{SDN}
+
+    
 \newpage
 \addcontentsline{toc}{section}{References}
     \printbibliography
