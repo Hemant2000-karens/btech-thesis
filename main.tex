@@ -353,7 +353,6 @@
     \phantomsection % Create a phantom section for accurate hyperlinking
         \addcontentsline{toc}{section}{List of Abbreviation}
         \vspace*{1cm}
-        
             \LARGE List of Abbreviation
         
         \vspace{1.2cm}
@@ -364,15 +363,16 @@
 
 \newpage
     \begin{center}
-            \tableofcontents
-            \newpage
-            \clearpage
-            \phantomsection
-            \addcontentsline{toc}{section}{Table of Content}
+        \phantomsection
+        \tableofcontents
+        \newpage
+        \clearpage
+        \addcontentsline{toc}{section}{Table of Content}
     \end{center}
 
 
 \newpage
+\phantomsection
 % \pagenumbering{arabic}
 \section*{Chapter 1}
 \addcontentsline{toc}{section}{Chapter 1}
@@ -402,6 +402,7 @@
 
 
 \newpage
+\phantomsection
 \section*{Chapter 2}
 \addcontentsline{toc}{section}{Chapter 2}
 \vspace*{1.2 cm}
@@ -415,6 +416,7 @@
 
     
 \newpage
-\addcontentsline{toc}{section}{References}
+\phantomsection
     \printbibliography
+    \addcontentsline{toc}{section}{References}
 \end{document}
