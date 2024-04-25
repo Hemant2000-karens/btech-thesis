@@ -1,0 +1,370 @@
+\documentclass[12pt,letterpaper]{article}
+
+% Typography
+\usepackage{fontspec}
+\usepackage{ebgaramond}
+
+% Section and Subsection Formatting
+\usepackage{titlesec}
+\titleformat{\section}
+  {\normalfont\fontsize{18}{15}\selectfont\bfseries}
+  {\thesection}{6 pt}{}
+\titleformat{\subsection}
+  {\normalfont\fontsize{14}{13}\itshape\mdseries}
+  {\thesubsection}{8 pt}{}
+
+% Fonts
+\newfontfamily\englishtowne{EnglishTowne}[
+  Path = fonts/,
+  Extension = .ttf,
+]
+\newfontfamily\anglican{AnglicanText-Regular}[
+    Path = fonts/,
+    Extension = .ttf,
+]
+
+% Page Layout
+\usepackage{geometry}
+\geometry{margin= 2cm} % Adjust as needed
+
+% Graphics
+\usepackage{graphicx}
+
+% Text Formatting
+\usepackage{parskip}
+\usepackage{lipsum} % For generating dummy text
+\usepackage[english]{babel}
+\usepackage{soul}
+
+% Colors
+\usepackage{xcolor}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\definecolor{tudelftdarkblue}{RGB}{12,35,64}
+\definecolor{tudelftcyan}{RGB}{0,166,214}
+\definecolor{tudelftblue}{RGB}{0,118,194}
+
+% Hyperlinks
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true, % Use color for links
+    linkcolor=tudelftblue, % Set link color
+    urlcolor=tudelftblue, % Set URL color
+    citecolor=tudelftblue % Set citation color
+}
+
+% Headers and Footers
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{} % Clear header and footer
+\renewcommand{\headrulewidth}{0pt} % Remove header line
+\renewcommand{\footrulewidth}{0.5pt} % Add footer line
+\fancyfoot[C]{\thepage} % Page number in the center of the footer
+
+% Code Listings
+\usepackage{listings}
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\small,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=mystyle}
+
+% Algorithms
+\usepackage{algpseudocode}
+
+% Mathematics
+\usepackage{amsmath}
+
+% Loops
+\usepackage{forloop}
+
+% Tables
+\usepackage{booktabs}
+
+% Bibliography
+\usepackage[style=ieee, backend=biber]{biblatex}
+\addbibresource{reference.bib}
+
+% Enumeration
+\usepackage{enumitem}
+
+% TikZ
+\usepackage{tikz}
+\usepackage{tikzpagenodes}
+
+% Quoting
+\usepackage{csquotes}
+
+% Line spacing
+\linespread{1.25}
+
+%Heading Settings
+\usepackage{titlesec}
+\titleformat{\subsection}
+  {\normalfont\fontsize{16}{18}\bfseries}{\thesubsection}{1em}{}
+
+
+\begin{document}
+
+%  Title page Header
+\begin{titlepage}
+    \begin{center}
+        \vspace*{1cm}
+        
+        \textbf{\LARGE Ransomware Detection Application} \\
+        \Large{Implementation of \\ \textbf{\textit{Ransomware detection and mitigation using software-defined networking: The case of WannaCry}}}
+        
+        \vspace{0.6cm}
+        
+        \Large by
+        
+        \textbf{\Large Hemant Kumar} \\
+        (Roll No. 20BCS100)
+        
+        \vspace{1cm}
+        
+        \Large Supervisor:
+        
+        \textbf{\Large Dr. Neelam Dayal }\\
+            (Assistant Professor) \\
+        Computer Science and Engineering \\
+        PDPM IIITDM Jabalpur
+        
+        \vspace{1cm}
+        
+        % External Supervisor(s):  
+        
+        % Name of External Supervisor \\
+        % Company/Institute Address
+        
+        \vfill
+        
+        % Institute emblem
+        \includegraphics[width=30mm]{images/logo_college copy.png}
+        
+        \vspace{0.5cm}
+        
+        \Large{Computer Science and Engineering 
+        \\ PDPM Indian Institute of Information Technology, Design and Manufacturing, Jabalpur}
+        \\ (2024)
+        
+    \end{center}
+\end{titlepage}
+
+\pagenumbering{Roman}
+
+\newpage
+    \begin{center}
+        \vspace*{1cm}
+        
+        \LARGE Approval Sheet
+        
+        \vspace{1.2cm}
+        
+        % Your acknowledgment paragraph goes here
+       \large The 
+        % Add any additional acknowledgments here
+        
+        
+        
+    \end{center}
+    \phantomsection % Create a phantom section for accurate hyperlinking
+    \addcontentsline{toc}{section}{Approval Sheet}
+
+
+\newpage
+    \begin{center}
+        \vspace*{1cm}
+
+            \LARGE Declaration
+
+            \vspace{1.2cm}
+
+            \large Here to 
+    \end{center}
+
+
+\newpage
+    \begin{center}
+        \vspace*{1cm}
+        
+        {\englishtowne \LARGE Certificate}
+        
+        \vspace{1.2cm}
+        
+        % Your acknowledgment paragraph goes here
+       \large This is to certify that the Report entitled, \textbf{"Ransomeware Detection Application"}, submitted by \textbf{Hemant Kumar, Roll No. 20BCS100} in partial fulfillment of the requirements for the award of \textbf{ B.Tech Degree in Computer Science and Engineering}, at PDPM Indian Institute of Information Technology, Design and Manufacturing Jabalpur is an authentic work carried out by him under my supervision and guidance.
+    
+    
+        To the best of my knowledge, the matter embodied in the thesis has not been submitted elsewhere to any other university/institute for the award of any other degree.
+        % Add any additional acknowledgments here
+        
+        \vfill % Adjust the vertical space as needed
+
+         
+    \noindent
+    \begin{tabular}{@{}ll@{}}
+        \textbf{Dr. Neelam Dayal} & \hfill\textbf{{{2024-02-22}}} \\
+        \large Assistant Professor & \\
+        \parbox[t]{0.7\textwidth}{%
+            Computer Science and Engineering Discipline, \\
+            PDPM Indian Institute of Information Technology, Design and Manufacturing, Jabalpur, M.P, India-482005
+        }
+    \end{tabular}
+
+
+
+       \vspace{2cm}
+        
+    \end{center}
+    \phantomsection % Create a phantom section for accurate hyperlinking
+    \addcontentsline{toc}{section}{Certificate}
+
+
+
+
+\newpage
+    \begin{center}
+        \vspace*{1cm}
+        
+        {\englishtowne \LARGE Acknowledgement}
+        
+        \vspace{1.2cm}
+        
+        % Your acknowledgment paragraph goes here
+       \large I would like to express my sincere gratitude to all the people who contributed in some way to the work described in this Project. Primarily I thanks to my respected supervisor, \textbf{Dr. Neelam Dayal}, Assistant Professor in Computer Science and Engineering department, during my tenure of \textbf{BTP}, she contributed to an enriching college experience by giving me intellectual freedom in my work, providing me inspiration and motivation, engaging me with new ideas, and demanding a high quality of work in all my endeavors. It was a matter of great felicity and privilege for me to work under his auspices. Additionally, I would like to thanks for their interest in my work, for extending their valuable time and support throughout my Project.
+
+       I owe special thanks to my Project Partner \textbf{Chaitanya Mandi, Roll-no: 20BCS062} for his support and suggestions that kept me motivated to accomplish my research work during my course duration.  I would like to thanks my all seniors, of the Computer Science and Engineering Department including the non-teaching staff with whom I got the opportunity to work in a healthy and joyful environment.
+
+       Finally, I would like to acknowledge my beloved family members who supported me during my time here. I am really obliged for their constant love and support.
+        % Add any additional acknowledgments here
+        
+        \vfill % Adjust the vertical space as needed
+        
+        \hrule % Add a horizontal line
+        
+        \vspace{1cm} % Adjust the vertical space after the line
+        
+        % Your name on the right-align
+    \hfill \textbf{Hemant Kumar}
+        
+        % \vfill % Fill the remaining vertical space
+        
+        % Institute emblem (if needed)
+        
+    \end{center}
+    \phantomsection % Create a phantom section for accurate hyperlinking
+    \addcontentsline{toc}{section}{Acknowledgement}
+
+
+\newpage
+    \begin{center}
+        \vspace*{1cm}
+            \hrule
+               \begin{abstract}
+            \hrule
+        \vspace*{0.5 cm}
+        
+        \textbf{Background:} Ransomware poses a severe threat to the security of digital assets, with a rising frequency of sophisticated attacks targeting individuals and organizations globally. The potential for significant financial and reputational damage underscores the urgent need for robust and proactive countermeasures. Traditional antivirus solutions often fall short in detecting evolving ransomware variants, necessitating the development of advanced detection applications.
+
+        \textbf{Aim:} The primary objective of this research is to design, implement, and evaluate a cutting-edge Ransomware Detection Application. Leveraging innovative techniques, including machine learning and behavioral analysis, our application aims to provide real-time detection and mitigation of ransomware threats. By enhancing the resilience of systems against emerging attack vectors, the goal is to fortify the cybersecurity posture of individuals and organizations in the face of evolving ransomware landscape.
+        
+        \textbf{Conclusion:} The developed Ransomware Detection Application showcases promising results in effectively identifying and neutralizing ransomware threats. Through extensive testing and validation, our application demonstrates a high level of accuracy and efficiency in differentiating normal user behavior from malicious activities associated with ransomware attacks. The successful deployment of this solution contributes significantly to the ongoing efforts to secure digital environments against the menace of ransomware.
+        \vspace*{0.5 cm}
+
+        \hrule
+        \vspace*{0.5 cm}
+        \textbf{Keywords:} Ransomware, Detection Application, Cybersecurity, Machine Learning, Behavioral Analysis, Threat Mitigation, Real-
+            
+                \end{abstract}
+
+            \hrule
+        \vspace{1.2cm}
+        
+    \end{center}
+    \phantomsection % Create a phantom section for accurate hyperlinking
+    \addcontentsline{toc}{section}{Abstract}
+
+
+\newpage
+    \begin{center}
+        \vspace*{1cm}
+        
+            \LARGE Lists of Figure and Tables
+        
+        \vspace{1.2cm}
+        
+    \end{center}
+    \phantomsection % Create a phantom section for accurate hyperlinking
+    \addcontentsline{toc}{section}{Lists of Figure and Tables}
+
+
+\newpage
+    \begin{center}
+        \vspace*{1cm}
+        
+            \LARGE List of Abbreviation
+        
+        \vspace{1.2cm}
+        
+    \end{center}
+    \phantomsection % Create a phantom section for accurate hyperlinking
+    \addcontentsline{toc}{section}{List of Abbreviation}
+
+
+\newpage
+    \begin{center}
+            \tableofcontents
+            \newpage
+            \clearpage
+            \phantomsection
+            \addcontentsline{toc}{section}{Table of Content}
+    \end{center}
+
+\newpage
+\section*{Chapter 1}
+\vspace*{1.2 cm}
+\addcontentsline{toc}{section}{Chapter 1}
+    \section{Introduction}
+
+    In an era dominated by digital connectivity, the persistent threat of ransomware looms large, posing a formidable challenge to the security of individuals and organizations alike. Ransomware, a malicious software that encrypts or locks files and demands a ransom for their release, has evolved into a sophisticated and dynamic cyber threat. Understanding the nuances of ransomware is pivotal in developing effective countermeasures to safeguard against its pernicious impacts.
+
+    Ransomware, at its core, is a form of cyber extortion wherein malicious actors leverage advanced encryption algorithms to restrict access to files or entire systems. The victim, often left with no recourse, is coerced into paying a ransom, typically in cryptocurrency, to obtain the decryption key. This nefarious practice has given rise to various types of ransomware, each exhibiting distinct characteristics and complexities.
+    
+    \textbf{\textit{Encrypting Ransomware:}} This variant employs robust encryption algorithms, rendering files inaccessible until a ransom is paid. Notable examples include CryptoLocker and WannaCry.
+
+    \textbf{\textit{Locker Ransomware:}} Instead of encrypting files, locker ransomware locks users out of their systems, demanding payment for access restoration. Instances like the FBI virus and Winlocker fall into this category.
+
+    \textbf{\textit{Scareware:}} While not encrypting files, scareware falsely claims the presence of malware, tricking users into paying for non-existent security solutions.
+
+    \textbf{\textit{Mobile Ransomware:}} Targeting mobile devices, this variant demands payment for decrypting files or unlocking the device. Svpeng and Android Defender are prominent examples.
+    
+    \textbf{\textit{Doxware/Leakware:}} This type of ransomware not only encrypts files but also threatens to release sensitive information to the public if the ransom is not paid. It adds a layer of extortion by leveraging the fear of data exposure.
+    
+    Ransomware works in several stages, first stage is infection in this ransomware typically gain the access to a system through phishing emails containing malicious attachments, compromised websites and exploiting vulnerabilities in software. Once executed it starts its malicious activities.Second stage is encryption, One common type of ransomware encrypts the victim's files using strong encryption algorithms. This renders the files inaccessible without the decryption key, which only the attacker possesses. After encrypting the files, the ransomware displays a ransom note informing the victim of the encryption and demanding payment, often in cryptocurrency like Bitcoin, Ethereum, or Monero. The note typically includes instructions on how to pay the ransom and obtain the decryption key. If the victim decides to pay the ransom, they follow the instructions provided in the ransom note to transfer the cryptocurrency to the attacker's wallet. However, there is no guarantee that paying the ransom will result in the decryption key being provided, and it may even encourage further attacks. In some cases, victims receive a decryption key after paying the ransom, allowing them to regain access to their files. However, there have been instances where the decryption key provided was faulty or the attacker disappeared after receiving payment, leaving the victim without recourse.
+    
+    Ransomware attacks can have severe consequences, including financial losses, data breaches, and disruption of operations for businesses and individuals.
+
+    \subsection{Motivation and Problem Statement}
+
+\cite{AKBANOV2019111}
+\newpage
+\addcontentsline{toc}{section}{References}
+    \printbibliography
+\end{document}
