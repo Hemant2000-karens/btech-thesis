@@ -122,6 +122,12 @@
 \titleformat{\subsection}
   {\normalfont\fontsize{16}{18}\bfseries}{\thesubsection}{1em}{}
 
+%indentations
+% \usepackage{tocloft} 
+
+%abbreviation List
+\usepackage{acronym}
+
 
 \begin{document}
 
@@ -329,45 +335,37 @@
     \end{center}
     
 
-
 \newpage
-    \begin{center}
-        \vspace*{1cm}
-        \phantomsection % Create a phantom section for accurate hyperlinking
-        \addcontentsline{toc}{section}{Lists of Figure and Tables}
-            \section*{Lists of Figure and Tables}
-            % \listoffigures
-                % \clearpage
-
-            % \listoftables
-                % \clearpage
-                
-        \vspace{1.2cm}
-        
-    \end{center}
-    
-
-
-\newpage
-    \begin{center}
+\renewcommand{\listfigurename}{}
+\renewcommand{\listtablename}{}
+\begin{center}
     \phantomsection % Create a phantom section for accurate hyperlinking
-        \addcontentsline{toc}{section}{List of Abbreviation}
-        \vspace*{1cm}
-            \LARGE List of Abbreviation
-        
-        \vspace{1.2cm}
-        
-    \end{center}
-    
+    \addcontentsline{toc}{section}{Lists of Figures and Tables}
+    \Large {Lists of Figures}
+    \listoffigures
+    \Large {Lists of Tables}
+    \listoftables
+    \vspace{1.2cm}
+\end{center}
+
+\newpage
+\begin{center}
+    \phantomsection % Create a phantom section for accurate hyperlinking
+    \addcontentsline{toc}{section}{List of Abbreviation}
+    \vspace*{1cm}
+    \Large{List of Abbreviation}
+     \input{acronymsList}
+    \vspace{1.2cm}
+\end{center}
 
 
 \newpage
     \begin{center}
         \phantomsection
+        \addcontentsline{toc}{section}{Table of Content}
         \tableofcontents
         \newpage
         \clearpage
-        \addcontentsline{toc}{section}{Table of Content}
     \end{center}
 
 
@@ -393,28 +391,279 @@
     \textbf{\textit{Mobile Ransomware:}} Targeting mobile devices, this variant demands payment for decrypting files or unlocking the device. Svpeng and Android Defender are prominent examples.
     
     \textbf{\textit{Doxware/Leakware:}} This type of ransomware not only encrypts files but also threatens to release sensitive information to the public if the ransom is not paid. It adds a layer of extortion by leveraging the fear of data exposure.
+    \vspace{5mm}
     
-    Ransomware works in several stages, first stage is infection in this ransomware typically gain the access to a system through phishing emails containing malicious attachments, compromised websites and exploiting vulnerabilities in software. Once executed it starts its malicious activities.Second stage is encryption, One common type of ransomware encrypts the victim's files using strong encryption algorithms. This renders the files inaccessible without the decryption key, which only the attacker possesses. After encrypting the files, the ransomware displays a ransom note informing the victim of the encryption and demanding payment, often in cryptocurrency like Bitcoin, Ethereum, or Monero. The note typically includes instructions on how to pay the ransom and obtain the decryption key. If the victim decides to pay the ransom, they follow the instructions provided in the ransom note to transfer the cryptocurrency to the attacker's wallet. However, there is no guarantee that paying the ransom will result in the decryption key being provided, and it may even encourage further attacks. In some cases, victims receive a decryption key after paying the ransom, allowing them to regain access to their files. However, there have been instances where the decryption key provided was faulty or the attacker disappeared after receiving payment, leaving the victim without recourse.
-    
-    Ransomware attacks can have severe consequences, including financial losses, data breaches, and disruption of operations for businesses and individuals.
+    Ransomware operates in distinct stages. Initially, it gains access to systems through various means, including phishing emails, compromised websites, or exploiting software vulnerabilities. Once inside, it swiftly encrypts the victim's files using robust algorithms, making them inaccessible without a unique decryption key held by the attacker.
+
+    Following encryption, a ransom note appears, typically demanding payment in cryptocurrencies like Bitcoin or Ethereum. This note outlines instructions for payment and promises the release of the decryption key upon receipt. However, there's no guarantee that paying the ransom will result in the safe return of files. In some cases, victims receive decryption keys, but they may be faulty or lead to further issues.
+
+    Ransomware attacks carry severe consequences, including substantial financial losses, compromising sensitive data, and disrupting business operations. These incidents underscore the critical importance of robust cybersecurity measures to mitigate risks and protect against such threats.
 
     \subsection{Motivation and Problem Statement}
 
+        The proliferation of ransomware attacks in recent years has posed a significant threat to individuals, businesses, and organizations worldwide. Ransomware, a type of malicious software designed to encrypt files or restrict access to a computer system until a ransom is paid, has become increasingly sophisticated and difficult to detect. Traditional security measures often struggle to keep pace with the evolving tactics and techniques employed by ransomware operators.
+        
+        The devastating impact of ransomware attacks, such as the infamous WannaCry incident, underscores the urgent need for innovative approaches to detect and mitigate these threats effectively. Conventional security solutions, while essential, are often reactive and struggle to provide timely protection against emerging ransomware variants.
+        
+        In response to this pressing need, our research focuses on the development of a proactive ransomware detection and mitigation solution using \ac{SDN} technology. By leveraging the programmability and centralized control capabilities of SDN, we aim to enhance the resilience of network infrastructures against ransomware attacks and minimize the potential damage caused by such incidents.
+        
+        Despite the availability of traditional security measures, ransomware attacks continue to pose a significant threat to organizations worldwide. Existing security solutions often rely on signature-based detection methods and struggle to detect ransomware variants with previously unseen characteristics. Moreover, the rapid propagation and encryption capabilities of modern ransomware strains, exemplified by WannaCry, exacerbate the challenge of timely detection and containment.
+        
+        Our research seeks to address the following key challenges:
+
+        \begin{enumerate}
+            \item Detection Accuracy
+            \item Real-Time Mitigation
+            \item Scalablity and Adaptablity
+        \end{enumerate}
+
+    \subsection{About Ransomware and its functionality}
+
+    Ransomware serves as a broad term encompassing a category of malicious software designed to coerce victims into paying a specified ransom. Within the context of this text, our aim is to furnish readers with a foundational understanding of ransomware, followed by an in-depth exploration of strategies to mitigate its impact. This inaugural chapter endeavors to provide a historical backdrop of ransomware, alongside an elucidation of the ransomware attack sequence.
+    \\
+    Central to this mode of digital coercion are two primary variants, further delineated by the families they represent. These variants primarily involve ransomware that either encrypts, obfuscates, or obstructs access to files, or those that impede access to or lock users out of systems outright. Not confined to specific geographical locations or operating systems, these threats can manifest across diverse devices. Whether it be Android devices, iOS systems, or Windows platforms, all are susceptible to exploitation by ransomware. The manner in which a device is compromised may vary depending on the target, and the subsequent actions are contingent upon the capabilities of the device itself. However, discernible patterns often guide the actions of many extortionists.
+
+    \subsection{Anatomy of Ransomware Attack}
+
+    Let's talk about how ransomware is executed, as we now knows about what is ransomware, and what it is capable of doing. \\ So here in \autoref{fig:Ransomware Lifecycle}, it is shown that Ransomware works on 5-6 Stages of Life Cycle, we can ignore or broadly classify stages as per need, but mainly consists of these 5 Stages.\cite{liska2016ransomware}
+
+        \begin{figure*}
+            \centering
+            \includegraphics[width=\textwidth]{images/lifecycle.pdf}
+            \caption{Depiction of Life Cycle of ransomware}
+            \label{fig:Ransomware Lifecycle}
+        \end{figure*}
+        
+        \begin{enumerate}[label=\arabic*.]
+        \item Infection:
+    
+        \begin{enumerate}[label=\alph*.]
+            \item Delivery: Ransomware reaches a target system through various methods like phishing emails with malicious attachments, infected websites, RDP (Remote Desktop Protocol) vulnerabilities, or unpatched software.
+    
+            \item Initial Foothold: Once the ransomware gains access, it exploits vulnerabilities to establish a foothold on the system. This might involve creating new user accounts, disabling security software, or spreading laterally across the network.
+            
+        \end{enumerate}
+
+        \item Encryption:
+    
+        \begin{enumerate}[label=\alph*.]
+            \item File Targeting: The ransomware identifies and targets critical files and documents on the victim's device or network. This could include financial records, personal data, business documents, or system files.
+    
+            \item Encryption Process: Using strong encryption algorithms, the ransomware encrypts the targeted files, making them inaccessible to the victim. This process might vary depending on the specific ransomware strain.
+    
+            \item Encryption Key Generation: During encryption, the ransomware creates a unique decryption key for each victim. This key is essential for regaining access to the encrypted files. However, the attackers keep this key for themselves.
+            
+        \end{enumerate}
+    
+        \item Ransom Demand:
+    
+            Ransom Note: The ransomware displays a ransom note on the victim's screen. This note explains the situation, highlights the urgency, and outlines the attacker's demands. It typically includes instructions on how to pay the ransom, often in cryptocurrency like Bitcoin, due to its anonymity. The note might threaten to permanently delete backups, leak stolen data, or launch further attacks if the ransom isn't paid within a specific time frame.
+    
+            \item Verification (Hypothetical Scenario):
+    
+                \begin{enumerate}[label=\alph*.]
+                    \item Ransom Payment: If the victim chooses to pay (not recommended), they'd follow the attacker's instructions, which might involve sending cryptocurrency to a specific address.
+        
+                    \item Verification (Unreliable): In an ideal scenario (which isn't guaranteed with cybercriminals), the attackers might verify the payment received.
+                \end{enumerate}
+            
+            \item Decryption (Hypothetical Scenario):
+    
+                \begin{enumerate}[label=\alph*.]
+                    \item Decryptor Delivery (Unreliable): Again, assuming the attackers keep their word, they might provide a decryptor tool or the unique decryption key to the victim.
+    
+                    \item Decryption Process: The victim would then use the decryptor or key to decrypt the compromised files and regain access.
+                \end{enumerate}
+    
+        \subsubsection{Safety Precautions and Measures:}
+            \item Recovery (Recommended Approach):
+                \begin{itemize}
+                    \item Isolate Infected Systems: Disconnect affected devices from the network to prevent further spread.
+    
+                    \item Report the Attack: Inform law enforcement agencies and relevant authorities to assist with investigation and potential recovery efforts.
+    
+                    \item Restore from Backups: If you have up-to-date backups, restore your critical data from a safe, isolated location.
+        
+                    \item Remediate Vulnerabilities: Patch software vulnerabilities, update security software, and implement stronger access controls to prevent future attacks.
+        
+            \end{itemize}
+        
+        \end{enumerate}
+
+        \subsection{Impact of Ransomware}
+
+        Ransomware attacks have emerged as one of the most significant cybersecurity threats facing individuals, businesses, and organizations worldwide. These malicious incidents not only result in financial losses but also have far-reaching consequences that extend beyond immediate monetary damages. In this section, we explore the multifaceted impact of ransomware attacks on various stakeholders and the broader cybersecurity landscape.
+
+        \begin{enumerate}
+            \item \textbf{Financial Losses:} Ransomware attacks inflict substantial financial losses on victims, including ransom payments, remediation costs, and potential revenue disruptions. The direct financial impact of ransomware incidents can be staggering, with ransom demands ranging from hundreds to millions of dollars, depending on the scale and severity of the attack. 
+
+            \item \textbf{Data Breaches and Confidentiality Breaches:} Ransomware attacks often involve the exfiltration of sensitive data from compromised systems, posing a significant risk of data breaches and confidentiality breaches. Cybercriminals may threaten to release or sell stolen data if ransom demands are not met, leading to reputational damage, legal liabilities, and regulatory penalties for affected organizations. The exposure of confidential information can have long-term consequences for individuals and businesses, eroding trust and undermining brand integrity.
+
+            \item \textbf{Operational Distruptions:} The operational disruptions caused by ransomware attacks can have profound implications for business continuity and productivity. Ransomware-induced downtime can paralyze critical systems and services, disrupting day-to-day operations, customer interactions, and supply chain activities. The inability to access essential data and applications hampers decision-making processes and impedes organizational agility, resulting in cascading effects across the entire enterprise.
+
+            \item \textbf{Reputational Damage:} Ransomware attacks can inflict lasting reputational damage on affected organizations, eroding stakeholder trust and confidence. Public disclosure of a ransomware incident can tarnish a company's reputation, leading to loss of customers, partners, and investors. The perception of inadequate cybersecurity measures or mishandling of sensitive data can irreparably harm brand reputation and undermine competitive advantage in the marketplace.
+
+            \item \textbf{Legal and Regulatory Consequences:} Ransomware attacks carry significant legal and regulatory implications for organizations, particularly those operating in regulated industries. Non-compliance with data protection laws and regulations, such as the \ac{GDPR} or the \ac{HIPAA}, can result in severe penalties and sanctions. Organizations may face lawsuits, regulatory investigations, and class-action claims stemming from ransomware-related data breaches, further compounding the fallout from the attack.
+        \end{enumerate}
+
+    \clearpage
 
 \newpage
 \phantomsection
 \section*{Chapter 2}
 \addcontentsline{toc}{section}{Chapter 2}
-\vspace*{1.2 cm}
-
     \section{Literature Review}
 
+    The landscape of ransomware threats continues to evolve rapidly, posing significant challenges to cybersecurity practitioners and researchers alike. As organizations grapple with the escalating frequency and sophistication of ransomware attacks, the need for effective detection and mitigation strategies has become increasingly paramount. In this chapter, we conduct a comprehensive literature review to explore the existing body of research and solutions in the domain of ransomware detection, with a particular focus on the integration of Software-Defined Networking (SDN) technology.
 
+    The motivation for this literature review stems from the urgent need to address the pervasive threat of ransomware attacks and the limitations of traditional networking approaches in combating this menace. Traditional networking architectures, characterized by their reliance on hardware-based infrastructure and distributed control mechanisms, are ill-equipped to cope with the dynamic and evolving nature of modern cyber threats, including ransomware. These legacy systems often lack the agility, scalability, and programmability required to detect and mitigate ransomware attacks effectively.
 
+    Traditional networking approaches suffer from several inherent limitations that hinder their efficacy in ransomware detection and mitigation. These include:
 
+    \begin{enumerate}
+        \item \textbf{Heavy and Non-Programmable Infrastructure:} Traditional networking infrastructures consist of complex, hardware-based components, such as routers, switches, and firewalls, that are challenging to manage and configure. The reliance on proprietary hardware limits the flexibility and agility of traditional networks, making them unsuitable for rapidly adapting to changing threat landscapes.
+
+        \item \textbf{Lack of Real-Time Monitoring and Mitigation:} Traditional networking architectures are constrained by their static and reactive nature, making it difficult to detect and respond to ransomware attacks in real-time. The absence of centralized control and orchestration mechanisms impedes the ability to implement dynamic security policies and conduct timely threat analysis, leaving organizations vulnerable to ransomware incidents.
+    \end{enumerate}
+
+    In contrast, Software-Defined Networking (SDN) represents a paradigm shift in network architecture, offering a more agile, scalable, and programmable alternative to traditional networking approaches. By decoupling network control and data forwarding functions and centralizing network management through software-defined controllers, SDN enables organizations to overcome the limitations of traditional networking and enhance their cybersecurity posture.
+    \clearpage
     \subsection{SDN}
 
-    
+    In traditional networking, data moves across devices like switches and routers through packets, where each device makes forwarding decisions based on its own control logic. This setup integrates the control plane (managing routing protocols) and data plane (forwarding packets) within each device. \cite{nadeau2013sdn}
+
+    Software-Defined Networking (SDN) separates the control plane from the data plane, centralizing control logic in a software-defined controller. This controller communicates with forwarding devices to dynamically configure network behavior. Unlike traditional setups, SDN offers centralized management, dynamic policy enforcement, and greater flexibility in network customization and response to changing conditions.
+
+    \begin{figure*}[h]
+        \centering
+        \includegraphics[height = 12 cm]{images/sndvtra.pdf}
+        \caption{Differences between Traditional and SDN Networking}
+        \label{fig: SDN vs Tranditional Comparision}
+    \end{figure*}
+
+    As shown in \autoref{fig: SDN vs Tranditional Comparision}, we can say that, using SDN we can easily manage and manipulate our network flow as per our requirements.
+
+    \subsection{Planes of Network}
+
+    Every single network device typically has to perform three distinct activities, which are mapped correspondingly to three different planes of the network: data, control and management, as depicted in \autoref{fig:Data Flow working Diagram}
+
+    \begin{figure*}
+        \centering
+        \includegraphics[height= 8cm]{images/Data Flow Diagram.drawio.pdf}
+        \caption{Data Flow working Diagram}
+        \label{fig:Data Flow working Diagram}
+    \end{figure*}
+
+    \subsubsection{Data Plane}
+
+        \begin{itemize}
+            \item The data plane is responsible for processing the transit traffic, which decides what to do with packets arriving on an ingress interface.
+            \item  It is also termed as forwarding plane, as it mainly refers to a forwarding table to decide proper egress interface.
+            \item  From the perspective of packets the data plane usually handle end-station / user-generated packets that are always forwarded by network devices to other end-station devices.
+
+        \end{itemize}
+
+    \subsubsection{Control Plane}
+
+        \begin{itemize}
+            \item The control plane is concerned with collecting, processing and managing the network information in order to decide the forwarding behavior.
+            
+            \item It typically includes various tables and suite of protocols that work on these tables. Hence, control plane handles network device generated/received packets that are used for the creation and operation of the network itself.
+                
+            \item Typical protocols that run at control plane are routing, interface state management, connectivity management, adjacent device discovery, topology or reachability information exchange and service provisioning.
+
+        \end{itemize}
+
+    \newpage
+    \subsubsection{Management Plane}
+        \begin{itemize}
+            \item The management plane is used to interact, or monitor, with the device, in order to manage the network.
+            \item The management plane also runs its own suite of protocols such as \ac{snmp}, apart from supporting configurations of interfaces, network (IP subnets) and control-plane protocols.
+            \item In a traditional network device, the data-plane activities are carried out by dedicated hardware (or ‘high-speed code’), while the control plane operations are handled by the device CPU.
+
+        \end{itemize}
+
+    \section{Basics of Switch}
+
+    \begin{figure*}[h]
+        \centering
+        \includegraphics[height = 8 cm]{images/basicSwitch.drawio.pdf}
+        \caption{Schematic of Traditional Switch Workings}
+        \label{fig:Schematic of Traditional Switch Workings}
+    \end{figure*}
+
+    \begin{itemize}
+        \item The basic job of a network switch is to make a forwarding decision (control plane) and subsequently forward the data toward a destination (data plane), shown in \autoref{fig:Schematic of Traditional Switch Workings}.
+        \item To make forwarding decisions very quickly, the network switch is equipped with very specialized memory resources \ac{TCAM} to hold the forwarding information. The specialized nature of this memory makes it difficult and expensive for each switch to have large quantities of memory available for holding information about a large network.
+    \end{itemize}
+
+    \subsection{Traditional Networking}
+
+    \begin{itemize}
+        \item  Traditionally, routers/L3 switches have two high-level functionalities:
+        \begin{enumerate}
+            \item Control-plane functionality (routing protocols, QoS protocols)
+            \item Forwarding functionality (high speed forwarding based on rules stored in the forwarding tables)
+        \end{enumerate}
+        \item Control plane and data plane are coupled!, \autoref{fig:Schematic of Traditional Switch Workings}.
+
+    \end{itemize}
+
+
+    \subsection{Software Defined Networking}
+
+    \begin{figure*}[h]
+        \centering
+        \includegraphics[height=8cm]{images/schematicSDNSw.drawio.pdf}
+        \caption{Schematic of SDN Switch}
+        \label{fig:Schematic of SDN Switch}
+    \end{figure*}
+
+    \begin{itemize}
+        \item SDN is about refactoring of the relationship between network devices and the software that controls them. 
+
+        \item Replacing the distributed control-plane with a logically centralized ones, \autoref{fig:Schematic of SDN Switch}.
+    \end{itemize}
+
+
+    \subsection{Overview of SDN vs Traditional Netowrk Setup}
+
+        \begin{table}[h]
+            \centering
+            \begin{tabular}{ccc}
+            \toprule
+            \textbf{Criteria} & \textbf{Traditional Network} & \textbf{Software Defined Network} \\
+            \midrule
+                Network Management & Difficult: Apply on each devices & Easy: Centrally Programmable \\
+                Global Network View & Difficult & Central View at Controller \\
+                Time for update/ Error Handling & Difficult: takes months & Easy: with Software Based \\
+                Attack Detection and Mitigation & Difficult & Easier \& Quick \\
+                Availablity of Controller & Not Relevent & Important \\
+            % Add more rows as needed
+            \bottomrule
+            \end{tabular}
+            \caption{Comparison of Traditional Network and Software Defined Network}
+            \label{tab:network-comparison}
+        \end{table}
+\clearpage    
+    \newpage
+    \section*{Chapter 3}
+        \section{Proposed Work}
+        In this chapter, we introduce our proposed work. We give a detailed description of our approach and explain the architecture of our model by describing each sub module in detail. We also explain the workflow of our proposed solution through a simple example.
+
+        \subsection{Approach}
+
+            Our proposed SDN-based detection and mitigation mechanism relies on inspection of the DNS traffic with dynamic black- listing, which particularly observes the network traffic for the presence of malicious domain names or IP addresses used during WannaCry’s communication with the C \& C server (as identified in Sections 3 and 4 ). As soon as such an attempt is detected, it is blocked. The list of malicious domain names is commonly specified in a local blacklisting file or by using online databases. One of the main benefits of this method is that it provides simplicity in implementation and effectiveness in detection and mitigation of malware activity. Therefore, this approach was used as a basis for our proposed mechanism.
+
+\clearpage    
+    \newpage
+    \section*{Chapter 4}
+        \section{Detailed Info}
+        
+
+        
+
+\clearpage
 \newpage
 \phantomsection
     \printbibliography
