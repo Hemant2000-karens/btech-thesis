@@ -714,24 +714,41 @@
         Static ransomware analysis is a method of examining ransomware code and characteristics without executing the malicious software. By analyzing the ransomware's code structure, file properties, and other attributes, static analysis helps uncover potential indicators of compromise (IOCs), encryption algorithms, and other critical information. This approach assists in understanding the ransomware's functionality and behavior, aiding in the development of detection and mitigation strategies.
     
             \begin{table}[h]
-            \centering
-            \caption{WannaCry worm and encryption components: Hashes and file types.}
-            \label{tab:WannaCry Components}
-                \begin{tabular}{|c|c|c|}
-        \hhline{|-|-|-|}
-        \textbf{Parameter} & \textbf{Worm Component} & \textbf{Encryption Component} \\
-        \hhline{|=|=|=|}
-        MD5 & & c5d40dff30148a6a7a9d091f2a31d7c1 \\
-        SHA1 & & e3897618a8189f632459e53f4b3e7459fd7f9917 \\
-        SHA256 & & c4f868791586ae4c2d25b0d4bcce85b8bef5f5b673d471de2e743156e9e8dfaf\\
-        File Type & & PE32+ executable (GUI) x86-64, for MS Windows \\
-        % Add more rows as needed
-        \hhline{|-|-|-|}
-    \end{tabular}
-        \end{table}
+                \centering
+                \caption{WannaCry encryption components: Hashes and file types.}
+                \label{tab:WannaCry Exec Components}
+                \begin{tabular}{ccccccc}
+                    \toprule
+                    \textbf{Parameter} & \textbf{Encryption Component} \\
+                    \midrule
+                    MD5 & c5d40dff30148a6a7a9d091f2a31d7c1 \\
+                    SHA1 & e3897618a8189f632459e53f4b3e7459fd7f9917 \\
+                    SHA256 & c4f868791586ae4c2d25b0d4bcce85b8bef5f5b673d471de2e743156e9e8dfaf \\
+                    File Type & PE32+ executable (GUI) x86-64, for MS Windows \\
+                    % Add more rows as needed
+                    \bottomrule
+                \end{tabular}
+            \end{table}
+
+            \begin{table}[htbp]
+                \centering
+                \caption{WannaCry worm components: Hashes and file types.}
+                \label{tab:WannaCry Worm Components}
+                \begin{tabular}{ccccccc}
+                    \toprule
+                    \textbf{Parameter} & \textbf{Worm Component} \\
+                    \midrule
+                    MD5 & e8a30656287fe831c9782204ed10cd68 \\
+                    SHA1 & e3897618a8189f632459e53f4b3e7459fd7f9917 \\
+                    SHA256 & 4625f4c125f3ce2cd4d2c8365d2996bfed67a0f545e08c215307edf944b3af88 \\
+                    File Type & PE32+ executable (GUI) x86-64, for MS Windows \\
+                    % Add more rows as needed
+                    \bottomrule
+                \end{tabular}
+            \end{table}
 
         We analyzed two WannaCry executables: the worm component and the
-        encryption component. Their corresponding hashes and basic characteristics are shown in \autoref{tab:WannaCry Components}. Below we present our main findings from the static 175 analysis.
+        encryption component. Their corresponding hashes and basic characteristics are shown in \autoref{tab:WannaCry Exec Components} and \autoref{tab:WannaCry Worm Components}. Below we present our main findings from the static 175 analysis.
         Analysis with the Pestudio tool has revealed that the worm and the en-cryption components contain dynamic-link libraries (DLLs), as shown in \autoref{tab:DLL-Link File} and \autoref{tab:DLL-Link1 File}. During its execution, the worm invokes the iphlpapi.dll in order to retrieve network confguration settings for the infected host. The kernel32.dll 180 and msvcrt.dll are two most invoked libraries by the encrypter. It was found that WannaCry uses Microsoft's crypto, file management, and C runtime file \ac{API}. The Crypto API library is used to generate and manage random symmetric and asymmetric cryptographic keys.
 
 
@@ -794,18 +811,22 @@
             \label{fig:Network Setup and Connection for Experiment}
         \end{figure}
 
-        We have setup our network simply with 2 real Windows nodes and 1 Ubuntu server which serves the purpose of both \textbf{OpenVswitch} and \textbf{POX Controller} due to shortage of hardware, or multiple computers.
+        The network configuration entails the utilization of two physical Windows nodes in conjunction with a singular Ubuntu server, tasked with fulfilling the roles of both the \textbf{OpenVswitch} and \textbf{POX Controller}. This amalgamation is necessitated by constraints in hardware availability or the unavailability of multiple computing units.
 
-       We have used an Intel Core i5 - 4\textsuperscript{th} Gen with 12GB RAM for the Ubuntu Server, an Intel Pentium 4 with 4GB RAM for Node 1, and an Intel Core i5 - 8\textsuperscript{th} Gen with 8GB RAM for Node 2.
+        For the Ubuntu Server, a hardware configuration comprising an Intel Core i5 - 4\textsuperscript{th} Generation processor, accompanied by 12GB of RAM, has been employed. Node 1 is equipped with an Intel Pentium 4 processor and 4GB of RAM, while Node 2 features an Intel Core i5 - 8\textsuperscript{th} Generation processor with 8GB of RAM.
 
 
         \subsection{Creation of Ransomware}
+
+        
 
         \subsection{Creation of Trojan Horse}
 
         In the process of creating the Trojan file for our ransomware, we employed a technique known as \textit{steganography}. This method involves concealing binary data within an image file, allowing the malicious payload to remain undetected by users and security systems alike. By embedding the ransomware binary bits within the pixels of an innocuous-looking image, we aimed to facilitate the covert distribution of the Trojan file. This approach not only enhances the stealthiness of the ransomware, but also increases the likelihood of it being inadvertently triggered by unsuspecting users, thereby maximizing its effectiveness in carrying out its malicious objectives.
 
         \subsection{Setting up Switch and Controller}
+
+        We follows the following methods, to setup software Based Switch and Controller.
 
         \subsection{Checking and Analysing Packets}
 
