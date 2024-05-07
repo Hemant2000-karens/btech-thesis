@@ -53,7 +53,7 @@
 \usepackage{hyperref}
 \hypersetup{
     colorlinks=true, % Use color for links
-    linkcolor=indigoDye, % Set link color
+    linkcolor=carlet, % Set link color
     urlcolor=Denim, % Set URL color
     citecolor=carlet % Set citation color
 }
@@ -128,6 +128,8 @@
 %abbreviation List
 \usepackage{acronym}
 
+%table Lining
+\usepackage{hhline}
 
 \begin{document}
 
@@ -255,7 +257,7 @@
          
     \noindent
     \begin{tabular}{@{}ll@{}}
-        \textbf{Dr. Neelam Dayal} & \hfill\textbf{{{2024-02-22}}} \\
+        \textbf{Dr. Neelam Dayal} & \hfill\textbf{{{\today}}} \\
         \large Assistant Professor & \\
         \parbox[t]{0.7\textwidth}{%
             Computer Science and Engineering Discipline, \\
@@ -427,7 +429,7 @@
 
     Let's talk about how ransomware is executed, as we now knows about what is ransomware, and what it is capable of doing. \\ So here in \autoref{fig:Ransomware Lifecycle}, it is shown that Ransomware works on 5-6 Stages of Life Cycle, we can ignore or broadly classify stages as per need, but mainly consists of these 5 Stages.\cite{liska2016ransomware}
 
-        \begin{figure*}
+        \begin{figure*}[h]
             \centering
             \includegraphics[width=\textwidth]{images/lifecycle.pdf}
             \caption{Depiction of Life Cycle of ransomware}
@@ -578,7 +580,7 @@
     \subsubsection{Management Plane}
         \begin{itemize}
             \item The management plane is used to interact, or monitor, with the device, in order to manage the network.
-            \item The management plane also runs its own suite of protocols such as \ac{snmp}, apart from supporting configurations of interfaces, network (IP subnets) and control-plane protocols.
+            \item The management plane also runs its own suite of protocols such as \ac{SNMP}, apart from supporting configurations of interfaces, network (IP subnets) and control-plane protocols.
             \item In a traditional network device, the data-plane activities are carried out by dedicated hardware (or ‘high-speed code’), while the control plane operations are handled by the device CPU.
 
         \end{itemize}
@@ -630,6 +632,8 @@
 
         \begin{table}[h]
             \centering
+            \caption{Comparison of Traditional Network and Software Defined Network}
+            \label{tab:network-comparison}
             \begin{tabular}{ccc}
             \toprule
             \textbf{Criteria} & \textbf{Traditional Network} & \textbf{Software Defined Network} \\
@@ -642,8 +646,6 @@
             % Add more rows as needed
             \bottomrule
             \end{tabular}
-            \caption{Comparison of Traditional Network and Software Defined Network}
-            \label{tab:network-comparison}
         \end{table}
 \clearpage    
     \newpage
@@ -653,19 +655,180 @@
 
         \subsection{Approach}
 
-            Our proposed SDN-based detection and mitigation mechanism relies on inspection of the DNS traffic with dynamic black- listing, which particularly observes the network traffic for the presence of malicious domain names or IP addresses used during WannaCry’s communication with the C \& C server (as identified in Sections 3 and 4 ). As soon as such an attempt is detected, it is blocked. The list of malicious domain names is commonly specified in a local blacklisting file or by using online databases. One of the main benefits of this method is that it provides simplicity in implementation and effectiveness in detection and mitigation of malware activity. Therefore, this approach was used as a basis for our proposed mechanism.
+            \begin{figure*}[h]
+                \centering
+                \includegraphics{images/ConceptDesign.drawio.pdf}
+                \caption{Conceptual design of the proposed SDN-based mechanism}
+                \label{fig:Conceptual design of the proposed SDN-based mechanism}
+            \end{figure*}
 
+            Our proposed SDN-based detection and mitigation mechanism relies on inspection of the \ac{DNS} traffic with dynamic black- listing, which particularly observes the network traffic for the presence of malicious domain names or IP addresses used during WannaCry’s communication with the C \& C server. %(as identified in Sections 3 and 4 ). 
+            As soon as such an attempt is detected, it is blocked. The list of malicious domain names is commonly specified in a local blacklisting file or by using online databases. One of the main benefits of this method is that it provides simplicity in implementation and effectiveness in detection and mitigation of malware activity. Therefore, this approach was used as a basis for our proposed mechanism.
+\\
+            The conceptual design of the proposed mechanism is depicted in \autoref{fig:Conceptual design of the proposed SDN-based mechanism}. The main detection and mitigation functionality is carried out by the developed SDN application. This application has been implemented on the SDN controller, which allows inspecting the entire network traffic and issuing instructions to the OpenFlow switch to update its flow table by installing appropriate rules. In \autoref{fig:Conceptual design of the proposed SDN-based mechanism}, numbers 1 to 5 represent different steps of the detection and mitigation process and are explained below:
+
+            \begin{enumerate}
+                \item Malicious \ac{TCP} traffic from an infected host arrives to the OpenFlow switch. This traffic includes \ac{SMB} probing and DNS query packets generated by WannaCry.
+
+                \item Assuming that initially there is no flow entry for the given infected host, the switch redirects all TCP traffic to the controller (this is the default action), in order to obtain further instructions on how to handle these packets.
+
+                \item All packets that are received by the controller, are passed to the application. The application performs the fol- lowing functions: parses packets, checks against the blacklist database file, and creates new flow entries in the switch. After receiving the packets, the application parses them in order to find any matches with WannaCry’s inherent network indicators.
+
+                \item The packets are checked against the database file containing the list of IP addresses and simultaneously with any matches to the TCP port numbers used by WannaCry.
+
+                \item If malicious communication is detected, the application creates a new flow entry in the switch instructing it to block the malicious traffic originating from the infected host.
+               
+            \end{enumerate}
+
+
+            \begin{table}[h]
+                \centering
+                \caption{Entries in the flow table of the OpenFlow switch}
+                \label{tab:firewall-rules}
+                    \begin{tabular}{ccccccc}
+                        \toprule
+                \textbf{Rule} & \textbf{Src addr} & \textbf{Src port} & \textbf{Dst addr} & \textbf{Dst port} & \textbf{Protocol} & \textbf{Action} \\
+                \midrule
+        1 & 10.0.0.1 & 80 & 203.0.113.5 & 443 & TCP & Allow \\
+        2 & 10.0.0.2 & 22 & 192.168.1.10 & 1025 & UDP & Deny \\
+        3 & 172.27.38.83 & Any & 192.168.1.20 & 53 & Any & Allow \\
+        % Add more rows as needed
+                \bottomrule
+                \end{tabular}
+            \end{table}
+
+        For example, the new flow table of the OpenFlow switch may contain the entries shown in \autoref{tab:firewall-rules}. In this case, the IP address 192.168.180.130 was taken from the blacklist database file (Step 3) and the relevant TCP port numbers (445, 139, etc.) are known to be used by the SMB protocol.
+
+    \subsection{Results}
+
+    In this work, we present our ransomware analysis results and our developed SDN-based security framework. For the proof of concept, the infamous WannaCry ransomware is used. However, the developed framework is also applicable in other ransomware families. In particular, we examine the behaviour of WannaCry during its execution in an isolated virtual lab environment. Based on the obtained results, we design an SDN detection and mitigation framework and develop a solution based on OpenFlow \cite{10.1145/1355734.1355746, KazuyaSUZUKI2014}, which is currently the most widely adopted SDN standard. The developed solution detects suspicious activities through network traffic monitoring and blocks infected hosts by adding flow table entries into Open- Flow switches in a real-time manner. The logic of the proposed framework has been implemented in the POX controller. For detection purposes, our implementation utilizes the WannaCry’s features and its generated traffic. Finally, our experimental results with multiple samples of WannaCry show that the developed mechanism is able to promptly detect, in all cases, the infected machines and prevent WannaCry from spreading.
+
+    The developed system is able to detect malicious activities using real time traffic analysis. Ceron et al. \cite{7543792} design and develop an SDN based malware analysis system which is capable to dynamically modify the network environment based on malicious activities. It has been demonstrated that the developed solution could trigger more malware events than traditional solutions.
+
+    This solution utilizes an application written for the POX controller, which connects to a blacklist database and performs dynamic checks on IP addresses. The main drawback of these approaches is the requirement to pre-define the ransomware proxy servers used in the blacklisting.
+
+    The feasibility of the proposed approaches has been confirmed by implementing and obtaining experimental results based on OpenvSwitch and POX. In particular, simulation results show a detection rate of 97–98\% with only 4–5\% false positives when relying on blacklisted domains.
+
+    \subsection{Static Analysis of WannaCry}
+
+        Static ransomware analysis is a method of examining ransomware code and characteristics without executing the malicious software. By analyzing the ransomware's code structure, file properties, and other attributes, static analysis helps uncover potential indicators of compromise (IOCs), encryption algorithms, and other critical information. This approach assists in understanding the ransomware's functionality and behavior, aiding in the development of detection and mitigation strategies.
+    
+            \begin{table}[h]
+            \centering
+            \caption{WannaCry worm and encryption components: Hashes and file types.}
+            \label{tab:WannaCry Components}
+                \begin{tabular}{|c|c|c|}
+        \hhline{|-|-|-|}
+        \textbf{Parameter} & \textbf{Worm Component} & \textbf{Encryption Component} \\
+        \hhline{|=|=|=|}
+        MD5 & & c5d40dff30148a6a7a9d091f2a31d7c1 \\
+        SHA1 & & e3897618a8189f632459e53f4b3e7459fd7f9917 \\
+        SHA256 & & c4f868791586ae4c2d25b0d4bcce85b8bef5f5b673d471de2e743156e9e8dfaf\\
+        File Type & & PE32+ executable (GUI) x86-64, for MS Windows \\
+        % Add more rows as needed
+        \hhline{|-|-|-|}
+    \end{tabular}
+        \end{table}
+
+        We analyzed two WannaCry executables: the worm component and the
+        encryption component. Their corresponding hashes and basic characteristics are shown in \autoref{tab:WannaCry Components}. Below we present our main findings from the static 175 analysis.
+        Analysis with the Pestudio tool has revealed that the worm and the en-cryption components contain dynamic-link libraries (DLLs), as shown in \autoref{tab:DLL-Link File} and \autoref{tab:DLL-Link1 File}. During its execution, the worm invokes the iphlpapi.dll in order to retrieve network confguration settings for the infected host. The kernel32.dll 180 and msvcrt.dll are two most invoked libraries by the encrypter. It was found that WannaCry uses Microsoft's crypto, file management, and C runtime file \ac{API}. The Crypto API library is used to generate and manage random symmetric and asymmetric cryptographic keys.
+
+
+        \begin{table}[h]
+            \centering
+            \caption{Dynamic Link Libraries (DLLs) invoked by WannaCry's encryption component}
+            \label{tab:DLL-Link File}
+            \begin{tabular}{ccc}
+                \toprule
+                \textbf{Library} & \textbf{Imports} & \textbf{Descriptions} \\
+                \midrule
+                USERS32.dll & 2& Multi-UserWindows USER API Client\\
+                KERNEL32.dll & 10& Windows NT BASE API Client\\
+                ADVAPI32.dll & 1& Advanced Windows 32 Base API\\
+                WS2\_32.dll & 1& Winsock DLL Loading\\
+                % Add more rows as needed
+                \bottomrule
+            \end{tabular}
+        \end{table}
+
+        \begin{table}[h]
+            \centering
+            \caption{Dynamic Link Libraries (DLLs) invoked by WannaCry's worm component}
+            \label{tab:DLL-Link1 File}
+            \begin{tabular}{ccc}
+                \toprule
+                \textbf{Library} & \textbf{Imports} & \textbf{Descriptions} \\
+                \midrule
+                USERS32.dll & 2& Multi-UserWindows USER API Client\\
+                KERNEL32.dll & 10& Windows NT BASE API Client\\
+                ADVAPI32.dll & 1& Advanced Windows 32 Base API\\
+                WS2\_32.dll & 1& Winsock DLL Loading\\
+                msvcp60.dll & 2 &  Windows NT C++ Runtime Library \\
+                msvcrt.dll & 28 & Windows NT CRT \\
+                % Add more rows as needed
+                \bottomrule
+            \end{tabular}
+        \end{table}
+
+
+    \subsection{Dynamic Analysis of Ransomware}
+
+
+    
+            
 \clearpage    
     \newpage
     \section*{Chapter 4}
         \section{Detailed Info}
-        
 
+            In this section, we provide a comprehensive overview of our research endeavors, focusing on the development and analysis of ransomware. Our work involved the creation of a sophisticated ransomware framework, followed by thorough static and dynamic analysis conducted within a secure sandbox environment. Through meticulous examination and experimentation, we gained valuable insights into the behavior and impact of ransomware, shedding light on its modus operandi and potential mitigation strategies. The following subsections delve deeper into each aspect of our research, detailing the methodologies employed and the key findings obtained.
+            
+            
+        \subsection{Experimental Setup}
+
+        \begin{figure}[htt]
+            \centering
+            \includegraphics{images/NetworkSetip.drawio.pdf}
+            \caption{Network Setup and Connection for Experiment}
+            \label{fig:Network Setup and Connection for Experiment}
+        \end{figure}
+
+        We have setup our network simply with 2 real Windows nodes and 1 Ubuntu server which serves the purpose of both \textbf{OpenVswitch} and \textbf{POX Controller} due to shortage of hardware, or multiple computers.
+
+       We have used an Intel Core i5 - 4\textsuperscript{th} Gen with 12GB RAM for the Ubuntu Server, an Intel Pentium 4 with 4GB RAM for Node 1, and an Intel Core i5 - 8\textsuperscript{th} Gen with 8GB RAM for Node 2.
+
+
+        \subsection{Creation of Ransomware}
+
+        \subsection{Creation of Trojan Horse}
+
+        In the process of creating the Trojan file for our ransomware, we employed a technique known as \textit{steganography}. This method involves concealing binary data within an image file, allowing the malicious payload to remain undetected by users and security systems alike. By embedding the ransomware binary bits within the pixels of an innocuous-looking image, we aimed to facilitate the covert distribution of the Trojan file. This approach not only enhances the stealthiness of the ransomware, but also increases the likelihood of it being inadvertently triggered by unsuspecting users, thereby maximizing its effectiveness in carrying out its malicious objectives.
+
+        \subsection{Setting up Switch and Controller}
+
+        \subsection{Checking and Analysing Packets}
+
+        \subsection{Applying Algorithm to Detect and Block}
         
+\clearpage
+    \newpage
+    \section*{Chapter 5}
+        \section{Conclusion and Future Scope}
+
+            We'll Write in final Submission
 
 \clearpage
 \newpage
 \phantomsection
     \printbibliography
     \addcontentsline{toc}{section}{References}
+
+    
+% \section*{Team Details}
+% \subsection*{Hemant Kumar}
+% I am currently pursuing my B.Tech in Computer Science and Engineering from the Indian Institute of Information Technology, Design and Manufacturing (IIITDM) Jabalpur, India, and am in my final year of study. As part of my academic curriculum, I am working on this project/report, which is a requirement for the partial fulfillment of my degree. My research interests include areas such as software engineering, SDN, Social Network Analysis and cybersecurity. %I actively participate in academic and research activities within my institute, and I am eager to contribute to the advancement of knowledge in my field.
+
+% \subsection*{Chaitanya Mandi}
+% I am currently pursuing my B.Tech in Computer Science and Engineering from the Indian Institute of Information Technology, Design and Manufacturing (IIITDM) Jabalpur, India, and am in my final year of study. As part of my academic curriculum, I am working on this project/report, which is a requirement for the partial fulfillment of my degree. My research interests include areas such as software engineering, SDN, Social Network Analysis and cybersecurity.
 \end{document}
