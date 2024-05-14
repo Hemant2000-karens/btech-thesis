@@ -49,13 +49,15 @@
 \definecolor{carlet}{RGB}{104, 22, 45}
 \definecolor{indigoDye}{RGB}{8, 71, 120}
 \definecolor{Denim}{RGB}{8, 93, 191}
+\definecolor{faded-blue}{RGB}{78, 119, 166}
+\definecolor{bluish-denim}{RGB}{5, 147, 255}
 % Hyperlinks
 \usepackage{hyperref}
 \hypersetup{
     colorlinks=true, % Use color for links
-    linkcolor=carlet, % Set link color
+    linkcolor=faded-blue, % Set link color
     urlcolor=Denim, % Set URL color
-    citecolor=carlet % Set citation color
+    citecolor=bluish-denim, % Set citation color
 }
 
 % Headers and Footers
@@ -429,7 +431,7 @@
 
     Let's talk about how ransomware is executed, as we now knows about what is ransomware, and what it is capable of doing. \\ So here in \autoref{fig:Ransomware Lifecycle}, it is shown that Ransomware works on 5-6 Stages of Life Cycle, we can ignore or broadly classify stages as per need, but mainly consists of these 5 Stages.\cite{liska2016ransomware}
 
-        \begin{figure*}[h]
+        \begin{figure*}[ht]
             \centering
             \includegraphics[width=\textwidth]{images/lifecycle.pdf}
             \caption{Depiction of Life Cycle of ransomware}
@@ -536,7 +538,7 @@
 
     Software-Defined Networking (SDN) separates the control plane from the data plane, centralizing control logic in a software-defined controller. This controller communicates with forwarding devices to dynamically configure network behavior. Unlike traditional setups, SDN offers centralized management, dynamic policy enforcement, and greater flexibility in network customization and response to changing conditions.
 
-    \begin{figure*}[h]
+    \begin{figure*}[ht]
         \centering
         \includegraphics[height = 12 cm]{images/sndvtra.pdf}
         \caption{Differences between Traditional and SDN Networking}
@@ -587,7 +589,7 @@
 
     \section{Basics of Switch}
 
-    \begin{figure*}[h]
+    \begin{figure*}[ht]
         \centering
         \includegraphics[height = 8 cm]{images/basicSwitch.drawio.pdf}
         \caption{Schematic of Traditional Switch Workings}
@@ -614,7 +616,7 @@
 
     \subsection{Software Defined Networking}
 
-    \begin{figure*}[h]
+    \begin{figure*}[ht]
         \centering
         \includegraphics[height=8cm]{images/schematicSDNSw.drawio.pdf}
         \caption{Schematic of SDN Switch}
@@ -630,7 +632,7 @@
 
     \subsection{Overview of SDN vs Traditional Netowrk Setup}
 
-        \begin{table}[h]
+        \begin{table}[ht]
             \centering
             \caption{Comparison of Traditional Network and Software Defined Network}
             \label{tab:network-comparison}
@@ -655,7 +657,7 @@
 
         \subsection{Approach}
 
-            \begin{figure*}[h]
+            \begin{figure*}[ht]
                 \centering
                 \includegraphics{images/ConceptDesign.drawio.pdf}
                 \caption{Conceptual design of the proposed SDN-based mechanism}
@@ -681,7 +683,7 @@
             \end{enumerate}
 
 
-            \begin{table}[h]
+            \begin{table}[ht]
                 \centering
                 \caption{Entries in the flow table of the OpenFlow switch}
                 \label{tab:firewall-rules}
@@ -699,21 +701,12 @@
 
         For example, the new flow table of the OpenFlow switch may contain the entries shown in \autoref{tab:firewall-rules}. In this case, the IP address 192.168.180.130 was taken from the blacklist database file (Step 3) and the relevant TCP port numbers (445, 139, etc.) are known to be used by the SMB protocol.
 
-    \subsection{Results}
-
-    In this work, we present our ransomware analysis results and our developed SDN-based security framework. For the proof of concept, the infamous WannaCry ransomware is used. However, the developed framework is also applicable in other ransomware families. In particular, we examine the behaviour of WannaCry during its execution in an isolated virtual lab environment. Based on the obtained results, we design an SDN detection and mitigation framework and develop a solution based on OpenFlow \cite{10.1145/1355734.1355746, KazuyaSUZUKI2014}, which is currently the most widely adopted SDN standard. The developed solution detects suspicious activities through network traffic monitoring and blocks infected hosts by adding flow table entries into Open- Flow switches in a real-time manner. The logic of the proposed framework has been implemented in the POX controller. For detection purposes, our implementation utilizes the WannaCry’s features and its generated traffic. Finally, our experimental results with multiple samples of WannaCry show that the developed mechanism is able to promptly detect, in all cases, the infected machines and prevent WannaCry from spreading.
-
-    The developed system is able to detect malicious activities using real time traffic analysis. Ceron et al. \cite{7543792} design and develop an SDN based malware analysis system which is capable to dynamically modify the network environment based on malicious activities. It has been demonstrated that the developed solution could trigger more malware events than traditional solutions.
-
-    This solution utilizes an application written for the POX controller, which connects to a blacklist database and performs dynamic checks on IP addresses. The main drawback of these approaches is the requirement to pre-define the ransomware proxy servers used in the blacklisting.
-
-    The feasibility of the proposed approaches has been confirmed by implementing and obtaining experimental results based on OpenvSwitch and POX. In particular, simulation results show a detection rate of 97–98\% with only 4–5\% false positives when relying on blacklisted domains.
-
+    
     \subsection{Static Analysis of WannaCry}
 
         Static ransomware analysis is a method of examining ransomware code and characteristics without executing the malicious software. By analyzing the ransomware's code structure, file properties, and other attributes, static analysis helps uncover potential indicators of compromise (IOCs), encryption algorithms, and other critical information. This approach assists in understanding the ransomware's functionality and behavior, aiding in the development of detection and mitigation strategies.
     
-            \begin{table}[h]
+            \begin{table}[ht]
                 \centering
                 \caption{WannaCry encryption components: Hashes and file types.}
                 \label{tab:WannaCry Exec Components}
@@ -752,7 +745,7 @@
         Analysis with the Pestudio tool has revealed that the worm and the en-cryption components contain dynamic-link libraries (DLLs), as shown in \autoref{tab:DLL-Link File} and \autoref{tab:DLL-Link1 File}. During its execution, the worm invokes the iphlpapi.dll in order to retrieve network confguration settings for the infected host. The kernel32.dll 180 and msvcrt.dll are two most invoked libraries by the encrypter. It was found that WannaCry uses Microsoft's crypto, file management, and C runtime file \ac{API}. The Crypto API library is used to generate and manage random symmetric and asymmetric cryptographic keys.
 
 
-        \begin{table}[h]
+        \begin{table}[ht]
             \centering
             \caption{Dynamic Link Libraries (DLLs) invoked by WannaCry's encryption component}
             \label{tab:DLL-Link File}
@@ -769,7 +762,7 @@
             \end{tabular}
         \end{table}
 
-        \begin{table}[h]
+        \begin{table}[ht]
             \centering
             \caption{Dynamic Link Libraries (DLLs) invoked by WannaCry's worm component}
             \label{tab:DLL-Link1 File}
@@ -791,8 +784,115 @@
 
     \subsection{Dynamic Analysis of Ransomware}
 
+    % Our dynamic analysis has revealed that, when started, the worm component invokes the \textit{InernetOpenUrl} function and attempts to establish a connection with the following domain
 
+    Dynamic analysis of WannaCry was conducted in a virtual test environment. A custom network was created to monitor DNS queries made by the ransomware across internal and external networks via port 445. The REMnux machine served as a DNS and HTTP server, intercepting network communications using Wireshark. The analysis showed that the ransomware attempted to connect to a specific domain upon startup using the \textit{InernetOpenUrl} function: \url{ieonline.microsoft.com}, as shown in \autoref{fig:fakedns-capture} we have verified that there is no such domain is mentioned in official Microsoft Support \url{https://learn.microsoft.com/en-us/windows/privacy/manage-windows-1903-endpoints}.
+
+    \begin{figure}[hbtt]
+        \centering
+        \includegraphics[width= \textwidth]{images/urlfakedns.pdf}
+        \caption{FakeDNS Captured Domain Name}
+        \label{fig:fakedns-capture}
+    \end{figure}
+
+    We have also found that, in the DNS record, our ransomware ping maximum numbers of times url is \url{dns.msftncsi.com}, which is unusual for request, as per Pi-Hole Website \cite{pi-hole}, it is seen that many request are made.
+
+    Our analysis has also shown that WannaCry attempts to establish persistence on the infected device by: 
+
+    \begin{itemize}
+ 
+        \item Creating an entry in the Windows registry, so that it is invoked every time the infected computer reboots.
+        
+        \item Adding itself to the AutoRun feature of Windows. 
+
+        \item  Utilizing the icacls command to enable full access to all files on the infected device.
+
+        \item  Deleting the backup copies and preventing the device rebooting in the safe mode.
+
+        \item Attempting to eliminate SQL and MS Exchange database processes by executing certain shell commands.
+        
+    \end{itemize}
+
+    \subsubsection{Challenges of dynamic malware analysis}
+
+    \begin{itemize}
+        
+        \item Dynamic malware analysis is more time-consuming and resource-intensive than static analysis. It can also pose a threat if the virtual environment is not completely isolated from other systems.
+
+        \item Additionally, while executing the malware helps teams understand more about a sample, it can also alert malware authors when their samples run.
+
+        \item Sophisticated malware can also sometimes detect when it is executed inside an isolated virtual environment instead of a natural environment. It does this by observing registry keys, processes or even whether the mouse and keyboard are actively in use. Some malware that can identify the difference might also employ techniques to prevent accurate analysis. It is challenging to create a realistic sandbox that can fool sophisticated malware, but it certainly isn't safe to execute a malware sample on a live system.
+    \end{itemize}
     
+    \subsection{Approach To Detect}
+
+        Since we using SDN approach to blocking ransomware to spread by using counter measures by blocking host in network on basis of Capturing malicious operation like SMB exploitation and pinging unwanted/ unverified Domain Name and IP Address.
+
+        But this working model already done with firewall, so we adapted new approach i.e., \ac{DPI} \cite{enwiki:1223318045}, based on the concept, this process will capture the packet in real time in control plane of the network, which is actually a pox controller, then it will match the pattern of signature with pre-existing samples, or if sample is not available then check for any piece of code in packets which seems to be malicious in nature, like containing any kinds of crypto-currency addresses, or contains any functions which is calling kernel level objects, as we learnt in static analysis of malware.
+
+        After proper identification of packets, the detection system will notify the POX controller to block the particular host, in a network, because it might be possible, as we assumed the scenario that some legitimate users in network, can also share ransomware files as shown in \autoref{fig:legitimate Scenario}.
+
+        The applied algorithm and approach are show in \autoref{Checking and Analysing Packets}
+
+        \begin{figure}[ht]
+            \centering
+            \includegraphics[height = 8cm]{images/Scene1.pdf}
+            \caption{Legitimate node become attacker}
+            \label{fig:legitimate Scenario}
+        \end{figure}
+
+        \subsection{Overview of Deep Packets Inspection}
+
+        \textit{Deep packet inspection (DPI)}, alternatively referred to as information extraction or complete packet inspection, serves as a comprehensive form of network packet filtering. It scrutinizes both the data and header sections of transmitted packets at inspection points, identifying and filtering out any content that violates protocol standards or poses security risks, such as spam, viruses, and intrusions.
+        
+        Furthermore, DPI plays a pivotal role in directing packets to their intended destinations. In essence, it possesses the capability to identify, categorize, block, or reroute packets containing specific code or data payloads that might evade detection or redirection by conventional packet filtering methods. Unlike traditional packet filtering, DPI delves deeper into packet contents beyond mere header examination.
+
+        The most common inspection used consists in comparing the packet content against certain attributes and checking for hits in any of the accessible layers. Depending on the application in which DPI is used the inspection process could be customized in terms of what needs to be matched, such as traffic from a certain IP address etc. DPI includes port-based analysis that enables the identification of the port number by inspecting the \textbf{TCP} or \textbf{UDP} headers and thus determining which protocol was used to generate the packet. Statistical analysis can also be employed as a DPI method, but it is not payload specific and rather uses several approaches to classify traffic based on port numbers or timestamps. We argue, however, that both port-based and statistical analysis methods are not exactly DPI but could be classified as what is known as \ac{SPI} \textcite{mochalski2009} because the payload is not involved at any stage of the inspection process. 
+
+        There exist multiple DPI methods, the variation is determined based on how the payload is matched to keywords. Understanding the logic behind DPI is an important step to find out which method should be avoided and which can be improved. Some of the methods can be performed as either string matching or regular expression matching \textcite{Xu2016ASO}. We are mainly interested in two methods and the ones that are most commonly used among all \textcite{Xu2016ASO}, they are as follows:
+
+        \subsubsection{Comparison of Deep Packet inspection vs Conventional Inspection}
+
+        \begin{table}[ht]
+    \centering
+    \caption{Comparison of Deep Packet Inspection vs Conventional Packet Filtering}
+    \label{table:comparison}
+    \begin{tabular}{p{0.45\linewidth} p{0.45\linewidth}}
+        \toprule
+        \textbf{Conventional Packet Filtering} & \textbf{Deep Packet Inspection (DPI)} \\
+        \midrule
+        Reads only the header information of each packet. & Analyzes both the header and data sections of packets. \\
+        Limited in sophistication due to technology constraints. & Enabled by advancements in technology, allowing for more thorough analysis. \\
+        Similar to reading the title of a book without evaluating the content inside. & Comparable to picking up a book, cracking it open, and reading it from cover to cover. \\
+        Less effective in detecting complex threats and security risks. & More comprehensive, capable of identifying and blocking sophisticated threats, such as malware and intrusions. \\
+        Often used in basic firewall configurations. & Deployed in modern security systems for enhanced threat detection and prevention. \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+
+        \subsubsection{Limitation of our approach}
+
+            While our approach offers significant advantages in terms of security enhancement, it's important to acknowledge several limitations that may arise. These include:
+
+            \begin{enumerate}
+                \item Deep packet inspection stands as a formidable defense against various cyber threats, including denial of service attacks, buffer overflow attacks, and certain types of malware. However, it also holds the potential for crafting similar attacks.
+
+                \item While offering enhanced security, deep packet inspection adds complexity to existing firewall and security software setups. Regular updates and policy reviews are essential to maintain its efficacy.
+
+                \item The rigorous scrutiny involved in deep packet inspection can introduce network latency by necessitating significant resource allocation. Storing packets temporarily for analysis may further contribute to delays in transmission and reception. Leveraging pre-existing samples from past network communications could expedite packet processing decisions.
+                
+            \end{enumerate}
+
+    \subsection{Results}
+
+    In this work, we present our ransomware analysis results and our developed SDN-based security framework. For the proof of concept, the infamous WannaCry ransomware is used. However, the developed framework is also applicable in other ransomware families. In particular, we examine the behaviour of WannaCry during its execution in an isolated virtual lab environment. Based on the obtained results, we design an SDN detection and mitigation framework and develop a solution based on OpenFlow \cite{10.1145/1355734.1355746, KazuyaSUZUKI2014}, which is currently the most widely adopted SDN standard. The developed solution detects suspicious activities through network traffic monitoring and blocks infected hosts by adding flow table entries into Open- Flow switches in a real-time manner. The logic of the proposed framework has been implemented in the POX controller. For detection purposes, our implementation utilizes the WannaCry’s features and its generated traffic. Finally, our experimental results with multiple samples of WannaCry show that the developed mechanism is able to promptly detect, in all cases, the infected machines and prevent WannaCry from spreading.
+
+    The developed system is able to detect malicious activities using real time traffic analysis. Ceron et al. \cite{7543792} design and develop an SDN based malware analysis system which is capable to dynamically modify the network environment based on malicious activities. It has been demonstrated that the developed solution could trigger more malware events than traditional solutions.
+
+    This solution utilizes an application written for the POX controller, which connects to a blacklist database and performs dynamic checks on IP addresses. The main drawback of these approaches is the requirement to pre-define the ransomware proxy servers used in the blacklisting.
+
+    The feasibility of the proposed approaches has been confirmed by implementing and obtaining experimental results based on OpenvSwitch and POX. In particular, simulation results show a detection rate of 97–98\% with only 4–5\% false positives when relying on blacklisted domains.
             
 \clearpage    
     \newpage
@@ -829,8 +929,14 @@
         We follows the following methods, to setup software Based Switch and Controller.
 
         \subsection{Checking and Analysing Packets}
+            \label{Checking and Analysing Packets}
 
+
+
+
+            
         \subsection{Applying Algorithm to Detect and Block}
+            \label{Applying Algorithm to Detect and Block}
         
 \clearpage
     \newpage
