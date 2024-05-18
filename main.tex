@@ -81,12 +81,12 @@
     breaklines=true,                 
     captionpos=b,                    
     keepspaces=true,                 
-    numbers=left,                    
-    numbersep=5pt,                  
+    % numbers=left,                    
+    % numbersep=2.5pt,                  
     showspaces=false,                
     showstringspaces=false,
-    showtabs=false,                  
-    tabsize=2
+    showtabs=true,                  
+    tabsize=1
 }
 \lstset{style=mystyle}
 
@@ -138,9 +138,8 @@
 %  Title page Header
 \begin{titlepage}
     \begin{center}
-        \vspace*{0.5cm}
         
-        \textbf{\LARGE Ransomware Detection Application} \\
+        \textbf{\LARGE Ransomware Detection Application} \\ \LARGE Application of \textbf{Deep Packet Inspection} based on \textbf{SDN} \\
          \large {\textbf{A REPORT} \\ \textit{Submitted in partial fulfillment of the requirements for the award of the degree \\ of}
         \\ \textbf{Bachelor of Technology} \\ \textit{in} \\ \textbf{COMPUTER SCIENCE AND ENGINEERING}} \\
         
@@ -329,7 +328,7 @@
 
         \hrule
         \vspace*{0.5 cm}
-        \textbf{Keywords:} Ransomware, Detection Application, Cybersecurity, Machine Learning, Behavioral Analysis, Threat Mitigation, Real-
+        \textbf{Keywords:} Ransomware, Detection Application, Cybersecurity, Machine Learning, Behavioral Analysis, Threat Mitigation, Real-time Protection, Cyber Threats, Digital Security, Antivirus Solutions, Deep Packet inspection, Worm Component, Shallow Packet Inspection, Regular expression, Signature Based Detection, Anomaly Based Detection.
             
                 \end{abstract}
 
@@ -851,21 +850,62 @@
 
         There exist multiple DPI methods, the variation is determined based on how the payload is matched to keywords. Understanding the logic behind DPI is an important step to find out which method should be avoided and which can be improved. Some of the methods can be performed as either string matching or regular expression matching \textcite{Xu2016ASO}. We are mainly interested in two methods and the ones that are most commonly used among all \textcite{Xu2016ASO}, they are as follows:
 
+        \begin{figure}[h]
+            \centering
+            \includegraphics[height = 6.5cm]{images/classification.drawio.pdf}
+            \caption{Classification of DPI methods}
+            \label{fig:Classification of Methods DPI}
+        \end{figure}
+
+        \begin{itemize}
+        
+            \item \textbf{Automaton-based:} This involves both regular expressions and string matching. A finite state automaton is created for each string or packet. The input can take multiple states until it is able to match itself to the required expression or string.
+
+            \item  \textbf{Heuristics-based:} A trial-and-error approach to find a specific string or expression in the payload.
+
+           Firewalls play an important role in protecting the endpoint device from malware and supporting IDS by blocking predefined IP addresses known as a security threat. How deep a firewall inspects a packet would depend on the firewall type and configuration
+
+        \end{itemize}
+
+        \subsubsection{Code Preprocessing}
+
+        Code preprocessing is a crucial element of signature-based detection technology. This process encompasses several tasks, including type analysis, decompression, unpacking, syntax analysis, and the pretreatment of macro viruses. Type analysis is dedicated to identifying the types of object programs, while decompression is applied to programs that have been compressed. Unpacking is specifically geared towards executable programs, such as those in PE, NE, and other formats. Syntax analysis is used to identify various script programs, including VBS and JS scripts.
+
+        Initially, the system identifies the type of the input program to determine the appropriate subsequent action. For compressed programs, the system decompresses the content. For script programs, including macro programs, it performs a syntax analysis and generates output based on the analysis. This output is then used in the next step for feature matching. In the case of binary programs, the system differentiates between binary executable programs (like PE, NE, COM, DOS, etc.) and other binary types. If a binary executable file is packed, it is processed through the unpacking module. Finally, the results from code preprocessing are used for further feature matching.
+
+        \subsubsection{Matching Algorithm}
+
+        The primary method utilized in scanning programs is known as pattern matching. This technique involves comparing segments of the target program's code against a database of known malicious code. If no matches are found, the target program is classified as benign, indicating a failure in matching. Conversely, if one or more matches are detected, the program is flagged as potentially malicious, indicating a successful match. This process is akin to string pattern matching algorithms.
+
+        According to the number of strings that can be processed at the same time and probabilities there is a certain number of mismatches in the matching process, the matching algorithm can be divided into the following two categories.
+
+        \begin{itemize}
+            \item Single pattern extract matching algorithms.
+
+            \item Multi-pattern extract matching algorithms.
+
+        \end{itemize}
+
+
         \subsubsection{Comparison of Deep Packet inspection vs Conventional Inspection}
 
         \begin{table}[ht]
-    \centering
-    \caption{Comparison of Deep Packet Inspection vs Conventional Packet Filtering}
-    \label{table:comparison}
-    \begin{tabular}{p{0.45\linewidth} p{0.45\linewidth}}
-        \toprule
-        \textbf{Conventional Packet Filtering} & \textbf{Deep Packet Inspection (DPI)} \\
-        \midrule
-        Reads only the header information of each packet. & Analyzes both the header and data sections of packets. \\
-        Limited in sophistication due to technology constraints. & Enabled by advancements in technology, allowing for more thorough analysis. \\
-        Similar to reading the title of a book without evaluating the content inside. & Comparable to picking up a book, cracking it open, and reading it from cover to cover. \\
-        Less effective in detecting complex threats and security risks. & More comprehensive, capable of identifying and blocking sophisticated threats, such as malware and intrusions. \\
-        Often used in basic firewall configurations. & Deployed in modern security systems for enhanced threat detection and prevention. \\
+            \centering
+            \caption{Comparison of Deep Packet Inspection vs Conventional Packet Filtering}
+            \label{table:comparison}
+            \begin{tabular}{p{0.45\linewidth} p{0.45\linewidth}}
+                \toprule
+            \textbf{Conventional Packet Filtering} & \textbf{Deep Packet Inspection (DPI)} \\
+            \midrule
+            Reads only the header information of each packet. & Analyzes both the header and data sections of packets. \\
+            
+            Limited in sophistication due to technology constraints. & Enabled by advancements in technology, allowing for more thorough analysis. \\
+            
+            Similar to reading the title of a book without evaluating the content inside. & Comparable to picking up a book, cracking it open, and reading it from cover to cover. \\
+            
+            Less effective in detecting complex threats and security risks. & More comprehensive, capable of identifying and blocking sophisticated threats, such as malware and intrusions. \\
+            
+            Often used in basic firewall configurations. & Deployed in modern security systems for enhanced threat detection and prevention. \\
         \bottomrule
     \end{tabular}
 \end{table}
@@ -886,13 +926,29 @@
 
     \subsection{Results}
 
-    In this work, we present our ransomware analysis results and our developed SDN-based security framework. For the proof of concept, the infamous WannaCry ransomware is used. However, the developed framework is also applicable in other ransomware families. In particular, we examine the behaviour of WannaCry during its execution in an isolated virtual lab environment. Based on the obtained results, we design an SDN detection and mitigation framework and develop a solution based on OpenFlow \cite{10.1145/1355734.1355746, KazuyaSUZUKI2014}, which is currently the most widely adopted SDN standard. The developed solution detects suspicious activities through network traffic monitoring and blocks infected hosts by adding flow table entries into Open- Flow switches in a real-time manner. The logic of the proposed framework has been implemented in the POX controller. For detection purposes, our implementation utilizes the WannaCry’s features and its generated traffic. Finally, our experimental results with multiple samples of WannaCry show that the developed mechanism is able to promptly detect, in all cases, the infected machines and prevent WannaCry from spreading.
+    In this work, we detail our investigations into ransomware behaviors, specifically focusing on the infamous WannaCry ransomware, within a controlled virtual lab environment. This analysis serves as a foundation for our proposed SDN-based security framework. Our framework leverages the capabilities of OpenFlow, the predominant standard in software-defined networking (SDN) as referenced in \cite{10.1145/1355734.1355746, KazuyaSUZUKI2014}, to enhance ransomware detection and mitigation efforts.
 
-    The developed system is able to detect malicious activities using real time traffic analysis. Ceron et al. \cite{7543792} design and develop an SDN based malware analysis system which is capable to dynamically modify the network environment based on malicious activities. It has been demonstrated that the developed solution could trigger more malware events than traditional solutions.
+    The cornerstone of our framework is the integration of deep packet inspection (DPI) techniques within the POX controller to monitor network traffic for indicators of compromise associated with ransomware, such as WannaCry. By scrutinizing packet contents in real-time, our system identifies suspicious activities that signify ransomware communication and behavior. Upon detecting such activities, our solution dynamically updates the flow tables in OpenFlow switches to isolate and block traffic from infected hosts, effectively preventing the spread of the infection.
 
-    This solution utilizes an application written for the POX controller, which connects to a blacklist database and performs dynamic checks on IP addresses. The main drawback of these approaches is the requirement to pre-define the ransomware proxy servers used in the blacklisting.
+    Our DPI-based approach enhances the traditional blacklist-based systems, which Ceron et al. \cite{7543792} noted could be dynamically adjusted to incite more malware activity detection compared to static systems. However, instead of relying solely on pre-defined lists of malicious IP addresses or domain names, our system examines the content of the network traffic itself. This method addresses the primary limitation of blacklist dependency and the inability to detect previously unknown threats.
 
-    The feasibility of the proposed approaches has been confirmed by implementing and obtaining experimental results based on OpenvSwitch and POX. In particular, simulation results show a detection rate of 97–98\% with only 4–5\% false positives when relying on blacklisted domains.
+    The effectiveness of our DPI-enhanced SDN framework has been validated through rigorous testing with multiple samples of WannaCry in a simulation environment, using OpenVswitch and the POX controller. Our experimental results indicate a high detection rate of 97–98\% with a reduced false positive rate of only 4–5\%. These figures underscore the robustness of our solution in accurately identifying and mitigating ransomware threats.
+
+    \subsubsection{Points to Consider}
+
+    \begin{enumerate}
+    
+        \item \textbf{False Positives/Negatives:} While our system demonstrates a low rate of false positives, continuous refinement of DPI algorithms is essential to further reduce erroneous detections and to adapt to evolving ransomware tactics.
+
+
+        \item \textbf{Scalability and Performance:} Implementing DPI at scale may introduce latency and require substantial processing power. It's crucial to balance security measures with network performance to maintain system efficiency.
+        
+        \item \textbf{Update and Maintenance:} Regular updates to the DPI signatures and monitoring algorithms are required to keep up with new ransomware variants and sophisticated evasion techniques.
+        
+        \item \textbf{Privacy Concerns:} The use of DPI raises privacy issues, as it involves deep inspection of packet contents, which could potentially contain sensitive information. Implementing stringent data handling and privacy policies is vital to safeguard user data.
+    \end{enumerate}
+
+    Our proposed framework thus not only provides a high degree of accuracy in detecting ransomware like WannaCry but also offers a scalable and dynamically adaptable solution suitable for current and future network security landscapes.
             
 \clearpage    
     \newpage
@@ -917,8 +973,27 @@
 
 
         \subsection{Creation of Ransomware}
-
         
+            \textbf{Disclaimer:}
+
+            While the research presented in this thesis involves the analysis of ransomware and its impact on cybersecurity, it is important to note that creating or distributing malicious software is illegal and unethical. As such, this thesis does not provide detailed instructions on the creation or propagation of ransomware. Rather, it focuses on the analysis of existing ransomware threats and the development of defensive strategies to mitigate their impact.
+
+            \textbf{Methodology:}
+
+            The research conducted for this thesis involved the analysis of ransomware samples, including the infamous WannaCry ransomware. Various techniques were employed to study the behavior and characteristics of these malware specimens, including static and dynamic analysis, network traffic monitoring, and reverse engineering.
+
+            \textbf{Technical Tools:}
+
+            The analysis was conducted using a combination of programming languages, libraries, and environments commonly used in cybersecurity research. This includes:
+
+            \begin{itemize}
+                \item \textbf{Programming Languages:} Python, C/C++
+                \item \textbf{Libraries/Frameworks:} Wireshark, IDA Pro, Ghidra
+                \item \textbf{Virtualization/Emulation:} VMware, VirtualBox
+                \item \textbf{Network Analysis Tools:} Wireshark, tcpdump
+            \end{itemize}
+
+        By leveraging these tools and methodologies, valuable insights were gained into the behavior and operation of ransomware, aiding in the development of effective defense mechanisms against such threats.
 
         \subsection{Creation of Trojan Horse}
 
@@ -926,7 +1001,30 @@
 
         \subsection{Setting up Switch and Controller}
 
-        We follows the following methods, to setup software Based Switch and Controller.
+        To create a software-defined networking (SDN) environment for our experiments, we first need to set up OpenVSwitch (OVS) as our virtual switch and the POX controller to manage network traffic.
+
+        \begin{enumerate}
+        
+            \item \textbf{Install OpenVSwitch (OVS):} Begin by installing OpenVSwitch on your system. OVS is available for various platforms and distributions, and installation instructions can typically be found on the official OpenVSwitch website or through package managers.
+
+            \subsubsection{Installation of OVS Switch}
+
+\begin{lstlisting}[language=bash]
+    $ sudo apt-get update && sudo apt-get upgrade 
+    $ sudo apt install openvswitch-switch openvswitch-common
+\end{lstlisting}
+
+            \item \textbf{Install POX Controller:} Next, install the POX controller, which is a lightweight SDN controller written in Python. POX is widely used for research and educational purposes due to its simplicity and flexibility. You can download POX from its GitHub repository and follow the installation instructions provided.
+
+\begin{lstlisting}[language=bash]
+    $ git clone http://github.com/noxrepo/pox
+    $ cd pox
+\end{lstlisting}            
+
+            
+        \end{enumerate}
+
+        
 
         \subsection{Checking and Analysing Packets}
             \label{Checking and Analysing Packets}

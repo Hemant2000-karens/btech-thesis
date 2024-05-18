@@ -1,13 +1,27 @@
 \documentclass{article}
-\usepackage{url}
+
+\usepackage{makeidx} % For indexing
+\makeindex % Generate index
 
 \begin{document}
 
-According to the OpenAI website \cite{openai_website}, ...
+\title{Sample Document with Indexing}
+\author{Your Name}
+\date{\today}
+\maketitle
 
-\begin{thebibliography}{9}
-\bibitem{openai_website}
-OpenAI. (n.d.). OpenAI. Retrieved from \url{https://openai.com}
-\end{thebibliography}
+\section{Introduction}
+
+This is a sample document with indexing. We will index some keywords and create an index at the end of the document.
+
+\section{Main Content}
+
+In this section, we will index some keywords like \index{keyword}, \index{LaTeX}, and \index{indexing}.
+
+\section{Conclusion}
+
+That's it! Now we will compile the document and generate the index.
+
+\printindex % Print the index
 
 \end{document}
