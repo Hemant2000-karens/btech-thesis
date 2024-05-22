@@ -1,27 +1,82 @@
 \documentclass{article}
-
-\usepackage{makeidx} % For indexing
-\makeindex % Generate index
+\usepackage{algorithm}
+\usepackage{algpseudocode}
 
 \begin{document}
 
-\title{Sample Document with Indexing}
-\author{Your Name}
-\date{\today}
-\maketitle
+\begin{algorithm}
+\caption{Initialize csv\_log\_path and define YARA rule for ransomware pattern}
+\begin{algorithmic}[1]
+\State \Comment{Initialize csv\_log\_path and define YARA rule for ransomware pattern}
+    \State \textbf{Initialization:}
+    \State Initialize \texttt{csv\_log\_path}
+    \State Define YARA rule for ransomware pattern
+    \State Compile YARA rule
+    \State Initialize \texttt{blocked\_hosts} dictionary
+\State \Comment{initialize\_csv(path)}
+    \State \textbf{Function:} 
+    \State \textbf{try}
+    \State \ \ \ Open and write headers to the CSV file at \texttt{path}
+    \State \ \ \ Log success
+    \State \textbf{catch} Exception
+    \State \ \ \ Log error
+    \State \textbf{end try}
+\State \Comment{write\_csv\_record(src\_ip, dst\_ip, protocol, action, path)}
+    \State \textbf{Function:}
+    \State \textbf{try}
+    \State \ \ \ Open and append packet record to the CSV file at \texttt{path}
+    \State \ \ \ Log success
+    \State \textbf{catch} Exception
+    \State \ \ \ Log error
+    \State \textbf{end try}
+\State \Comment{unblock\_host(ip)}
+    \State \textbf{Function:} 
+    \If{ip is in \texttt{blocked\_hosts}}
+        \State Remove ip from \texttt{blocked\_hosts}
+        \State Log the unblocking action
+    \EndIf
+\State \Comment{PacketLogger Class}
+    \State \textbf{Class:}
+    \Procedure{PacketLogger::\_\_init\_\_}{connection}
+        \State Assign connection and add listeners
+        \State Log initialization
+        \State Call \texttt{allow\_basic\_traffic()}
+    \EndProcedure
 
-\section{Introduction}
+    \Procedure{PacketLogger::allow\_basic\_traffic}{}
+        \State Send flow mods to allow ICMP and DNS traffic
+        \State Log the allowance of basic traffic
+    \EndProcedure
 
-This is a sample document with indexing. We will index some keywords and create an index at the end of the document.
-
-\section{Main Content}
-
-In this section, we will index some keywords like \index{keyword}, \index{LaTeX}, and \index{indexing}.
-
-\section{Conclusion}
-
-That's it! Now we will compile the document and generate the index.
-
-\printindex % Print the index
+    \Procedure{PacketLogger::\_handle\_PacketIn}{event}
+        \State Parse the packet from the event
+        \If{packet is incomplete}
+            \State Log warning and return
+        \EndIf
+        \If{packet is IPv4}
+            \State Extract src\_ip and dst\_ip
+            \If{src\_ip is in \texttt{blocked\_hosts}}
+                \State Log blocked packet and write record
+                \State Return
+            \EndIf
+            \If{packet is TCP or UDP}
+                \State Determine protocol and payload
+                \If{YARA rule matches payload}
+                    \State Log detection, add src\_ip to \texttt{blocked\_hosts}, write record
+                    \State Set Timer to unblock src\_ip after 15 minutes
+                    \State Return
+                \EndIf
+            \EndIf
+            \State Determine protocol and write allowed record
+            \State Allow the packet by sending flow mod
+        \EndIf
+    \EndProcedure
+\State \Comment{launch}
+    \State \textbf{Function:}
+    \State Call \texttt{initialize\_csv(csv\_log\_path)}
+    \State Define \texttt{start\_switch(event)} to log control and create \texttt{PacketLogger}
+    \State Add listener for \texttt{ConnectionUp} event to \texttt{start\_switch}
+\end{algorithmic}
+\end{algorithm}
 
 \end{document}

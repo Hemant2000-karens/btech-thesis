@@ -92,6 +92,8 @@
 
 % Algorithms
 \usepackage{algpseudocode}
+\usepackage{algorithm}
+
 
 % Mathematics
 \usepackage{amsmath}
@@ -285,7 +287,9 @@
         \vspace{1.2cm}
         
         % Your acknowledgment paragraph goes here
-       \large I would like to express my sincere gratitude to all the people who contributed in some way to the work described in this Project. Primarily I thanks to my respected supervisor, \textbf{Dr. Neelam Dayal}, Assistant Professor in Computer Science and Engineering department, during my tenure of \textbf{BTP}, she contributed to an enriching college experience by giving me intellectual freedom in my work, providing me inspiration and motivation, engaging me with new ideas, and demanding a high quality of work in all my endeavors. It was a matter of great felicity and privilege for me to work under his auspices. Additionally, I would like to thanks for their interest in my work, for extending their valuable time and support throughout my Project.
+       \large I would like to express my sincere gratitude to all the people who contributed in some way to the work described in this Project. Primarily I thanks to my respected supervisor, \textbf{Dr. Neelam Dayal}, Assistant Professor in Computer Science and Engineering department, during my tenure of \textbf{BTP}, she contributed to an enriching college experience by giving me intellectual freedom in my work, providing me inspiration and motivation, engaging me with new ideas, and demanding a high quality of work in all my endeavors. It was a matter of great felicity and privilege for me to work under her auspices. 
+       
+       Additionally, I would like to thanks \textbf{Dr. Abhishek Verma} (Assistant Professor), I.T Deptt. from the \textbf{Babasaheb Bhimrao Ambedkar University, Lucknow} for their interest in my work, for extending their valuable time and support throughout my Project.
 
        I owe special thanks to my Project Partner \textbf{Chaitanya Mandi, Roll-no: 20BCS062} for his support and suggestions that kept me motivated to accomplish my research work during my course duration.  I would like to thanks my all seniors, of the Computer Science and Engineering Department including the non-teaching staff with whom I got the opportunity to work in a healthy and joyful environment.
 
@@ -577,7 +581,6 @@
 
         \end{itemize}
 
-    \newpage
     \subsubsection{Management Plane}
         \begin{itemize}
             \item The management plane is used to interact, or monitor, with the device, in order to manage the network.
@@ -586,6 +589,8 @@
 
         \end{itemize}
 
+    \newpage
+    
     \section{Basics of Switch}
 
     \begin{figure*}[ht]
@@ -782,7 +787,7 @@
 
 
     \subsection{Dynamic Analysis of Ransomware}
-
+        \label{sec: Dynamic Analysis of Ransomware}
     % Our dynamic analysis has revealed that, when started, the worm component invokes the \textit{InernetOpenUrl} function and attempts to establish a connection with the following domain
 
     Dynamic analysis of WannaCry was conducted in a virtual test environment. A custom network was created to monitor DNS queries made by the ransomware across internal and external networks via port 445. The REMnux machine served as a DNS and HTTP server, intercepting network communications using Wireshark. The analysis showed that the ransomware attempted to connect to a specific domain upon startup using the \textit{InernetOpenUrl} function: \url{ieonline.microsoft.com}, as shown in \autoref{fig:fakedns-capture} we have verified that there is no such domain is mentioned in official Microsoft Support \url{https://learn.microsoft.com/en-us/windows/privacy/manage-windows-1903-endpoints}.
@@ -940,7 +945,6 @@
     
         \item \textbf{False Positives/Negatives:} While our system demonstrates a low rate of false positives, continuous refinement of DPI algorithms is essential to further reduce erroneous detections and to adapt to evolving ransomware tactics.
 
-
         \item \textbf{Scalability and Performance:} Implementing DPI at scale may introduce latency and require substantial processing power. It's crucial to balance security measures with network performance to maintain system efficiency.
         
         \item \textbf{Update and Maintenance:} Regular updates to the DPI signatures and monitoring algorithms are required to keep up with new ransomware variants and sophisticated evasion techniques.
@@ -1014,34 +1018,326 @@
     $ sudo apt install openvswitch-switch openvswitch-common
 \end{lstlisting}
 
-            \item \textbf{Install POX Controller:} Next, install the POX controller, which is a lightweight SDN controller written in Python. POX is widely used for research and educational purposes due to its simplicity and flexibility. You can download POX from its GitHub repository and follow the installation instructions provided.
+            \item \textbf{Install POX Controller:} Next, Install the POX controller, which is a lightweight SDN controller written in Python. POX is widely used for research and educational purposes due to its simplicity and flexibility. You can download POX from its GitHub repository and follow the installation instructions provided.
 
 \begin{lstlisting}[language=bash]
     $ git clone http://github.com/noxrepo/pox
     $ cd pox
+    $ ./pox.py log.level forwarding.policy6 openflow.of_01 --port=3030
 \end{lstlisting}            
 
-            
-        \end{enumerate}
 
-        
+    \item \textbf{Setting up Bridge and interfaces} We after successful installation of OVS switch and POX Controller, we made bridge of 2 USB - ETH adapter to act as 2 new Ethernet PORT.
+
+        \begin{itemize}[label=$\rightarrow$]
+            \item First using \textbf{\textit{ifconfig}}, check the interface name of the ethernet ports.
+\begin{lstlisting}[language=bash]
+    $ ifconfig
+
+        enx000010027967: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+            inet6 fe80::acd9:e45f:d7e:9088  prefixlen 64  scopeid 0x20<link>
+            ether 00:0c:29:20:02:4c  txqueuelen 1000  (Ethernet)
+            RX packets 9969  bytes 12745218 (12.7 MB)
+            RX errors 0  dropped 0  overruns 0  frame 0
+            TX packets 4885  bytes 433656 (433.6 KB)
+            TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+        enxf8e43b4b4829: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+            ether a0:0c:1b:20:bc:4c  txqueuelen 1000  (Ethernet)
+            RX packets 9969  bytes 12745218 (12.7 MB)
+            RX errors 0  dropped 0  overruns 0  frame 0
+            TX packets 4885  bytes 433656 (433.6 KB)
+            TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+\end{lstlisting}
+
+            \item Check whether OvS-switch working on or not using command \textbf{\textit{sudo ovs-vsctl show}}, if result shows 
+
+\begin{lstlisting}[language=bash]
+    $ sudo ovs-vsctl show
+    
+        ad773ed2-f0b7-458b-beac-6ba704b1ed87
+        ovs_version: "2.17.9"
+\end{lstlisting}
+
+    This verify that openvswitch working fine.
+
+    \item Now to add port (Network Interface) into OpenVswitch, first we need to create one \textbf{\textit{Bridge}}, namely \textit{br0}. Then add Interface into the bridge by following commands.
+    
+\begin{lstlisting}[language=bash]
+    $ sudo ovs-vsctl add-br br0
+    $ sudo ovs-vsctl add-port br0 enxf8e43b4b4829
+    $ sudo ovs-vsctl add-port br0 enx000010027967
+    $ sudo ovs-vsctl show
+\end{lstlisting}    
+
+    \textbf{OUTPUT}
+
+\begin{lstlisting}[language=bash]
+    ad773ed2-f0b7-458b-beac-6ba704b1ed87
+    Bridge br0
+        Port br0
+            Interface br0
+                type: internal
+        Port enx000010027967
+            Interface enx000010027967
+        Port enxf8e43b4b4829
+            Interface enxf8e43b4b4829
+    ovs_version: "2.17.9"
+
+\end{lstlisting}   
+
+\begin{lstlisting}[language=bash]
+    $ sudo ip addr add 192.168.1.1/24 dev br0
+    $ sudo ip link set br0 up
+\end{lstlisting}
+
+    The above command is to turn on Link called \textit{br0}, so that it can make communication, and to listen the traffic in wireshark. 
+    
+    \item Now add iP address to Bridge \textit{br0}, so that it can act as Gateway for connected Node. and also set Protocol and Controller IP and port Number, so that whenever POX starts, then OVS connects to it, for Control Plane working.
+
+\begin{lstlisting}[language=bash]
+    $ sudo ovs-vsctl set-controller br0 tcp:localhost:3030 protocol=OpenFlow10
+\end{lstlisting} 
+
+Here we are using POX controller and OVS switch in the same Machine, so no need to mention the IP address of POX controller, but since we are using non-default port of Controller, so it is necessary to mention the port number.
+
+\textbf{OUTPUT}
+
+\begin{lstlisting}[language=bash]
+    ad773ed2-f0b7-458b-beac-6ba704b1ed87
+    Bridge br0
+        Controller "tcp:localhost:3030"
+        Controller "protocol=OpenFlow10"
+        Port br0
+            Interface br0
+                type: internal
+        Port enx000010027967
+            Interface enx000010027967
+                type: internal
+        Port enxf8e43b4b4829
+            Interface enxf8e43b4b4829
+                type: internal
+    ovs_version: "2.17.9"
+
+\end{lstlisting}   
+
+    \end{itemize}    
+    \end{enumerate}
+
 
         \subsection{Checking and Analysing Packets}
             \label{Checking and Analysing Packets}
 
 
+            In this section, we outline the tools and techniques used to analyze network traffic and identify ransomware behavior. We utilized Wireshark, Yara, REMnux, and the open-source deep packet inspection tool nDPI to scrutinize packet patterns and behaviors associated with ransomware.
+
+        \subsubsection{Tools and Setup}
+
+         \begin{itemize}
+             \item  Wireshark: This powerful network protocol analyzer allows for detailed inspection of packet data traversing the network. It's widely used for capturing and analyzing network traffic.
+
+            \item Yara: Known for its effectiveness in identifying and classifying malware, Yara is used to create descriptions of malware families based on textual or binary patterns. To install Yara on a Unix-based system, use the following commands:
+\begin{lstlisting}[language=bash]
+    $ sudo apt-get update
+    $ sudo apt-get install yara
+\end{lstlisting}   
+
+        \item REMnux: A Linux toolkit for reverse-engineering and analyzing malware, which comes with pre-installed tools such as FakeDNS and HTTP Daemon for network analysis. as we discussed in \autoref{sec: Dynamic Analysis of Ransomware}.
+
+        \item nDPI: This tool performs deep packet inspection (DPI) to classify and analyze network traffic. It can be installed and used as follows:
+
+\begin{lstlisting}[language=bash]
+    $ sudo apt-get update
+    $ sudo apt-get install libpcap-dev
+    $ git clone https://github.com/ntop/nDPI.git
+    $ cd nDPI
+    $ make
+\end{lstlisting}  
+
+        \item Use nDPI to listen to network traffic on the interface br0 and log the output to a CSV file:
+\begin{lstlisting}[language=bash]
+    $ cd nDPI/examples
+    $ sudo ./ndpiReader -i br0 -C /home/ovs/Documents/log.csv -R
+\end{lstlisting} 
+
+   Below are the screenshots from our experiment, which demonstrate how nDPI captured and inspected packets containing potential harmful content, subsequently assigning a risk score. \autoref{fig: nDPI Capture and showing Risk Score}
+
+   \begin{figure}[httb]
+       \centering
+       \includegraphics[width = \textwidth, height = 10cm]{images/risk_score.pdf}
+       \caption{nDPI Capture and showing Risk Score}
+       \label{fig: nDPI Capture and showing Risk Score}
+   \end{figure}
+
+  In our analysis, we utilized Wireshark to cross-check and examine packet data related to ransomware activities. Our findings indicated that ransomware, particularly those developed with modern programming languages like Python, predominantly support the x64 architecture.
+
+  \subsubsection{Key Observation:}
+    \begin{itemize}
+        \item \textbf{Architecture Dependency:} Both open-source and trojanized ransomware samples demonstrated a consistent characteristic—they are designed to run only on x64 architecture systems. This constraint was evident in the packet payloads we analyzed.
+
+        \item \textbf{Characteristic Packet Content:} A notable feature in the payload of these ransomware packets was the ASCII message: "This program cannot run in DOS mode." This message is indicative of programs compiled for 64-bit systems, which are incompatible with older DOS environments. The corresponding ASCII pattern observed in the packet data is as follows:
+
+\begin{lstlisting}[language=bash]
+        54 68 69 73 20 70 72 6f    67 72 61 6d 20 63 61 6e
+        6e 6f 74 20 62 65 20 72    75 6e 20 69 6e 20 44 4f
+        53 20 6d 6f 64 65 2e 
+\end{lstlisting}
+    \end{itemize}
+
+         \end{itemize}      
+
+Based on our findings using signature-based detection and deep packet inspection with the nDPI open source tool, we have identified consistent patterns and high-risk scores in ransomware packets. These insights provide a strong foundation for developing a detection algorithm. By leveraging deep packet inspection to analyze packet contents and match against known ransomware signatures, we can accurately assess risk scores and trigger alerts or mitigation actions. This approach enhances our ability to detect and respond to ransomware threats effectively.
 
 
             
         \subsection{Applying Algorithm to Detect and Block}
             \label{Applying Algorithm to Detect and Block}
-        
+            
+        Combining the insights gleaned from our exploration of packet analysis in \autoref{Checking and Analysing Packets} with the versatile capabilities of the POX Python module, we've crafted a bespoke algorithm primed to tackle ransomware head-on. Armed with the Yara module for pattern matching prowess, our algorithm swiftly discerns suspicious packet patterns, springing into action at the first sign of trouble. Picture this: a relentless 15-minute interval cycle, where our algorithm diligently reassesses network traffic, granting clemency to innocent packets while swiftly thwarting malicious ones. But wait, there's more! Should the threat persist, our system seamlessly escalates, blocking transmission for an additional 15-minute stretch. All the while, our trusty CSV log meticulously documents each move, capturing the ebb and flow of attacker tactics for ongoing strategy refinement.
+
+        As we pivot from strategy to implementation, our algorithm emerges as the linchpin of our defensive arsenal, orchestrating a symphony of pattern recognition, decision-making, and adaptive response. Fusing the power of the POX Python module with the precision of the Yara pattern matching engine, it embodies a proactive ethos in the relentless pursuit of threat detection and prevention. With a finger firmly on the pulse of real-time analysis and rapid response, our algorithm stands as a stalwart guardian, fortifying our network infrastructure against the ceaseless onslaught of ransomware threats.
+
+        \newpage
+\subsubsection{Psuedo Code of the Algorithm}
+
+\begin{algorithm}
+\caption{Detection and Prevention Alogrithm}
+\begin{algorithmic}[1]
+\State \Comment{Initialize csv\_log\_path and define YARA rule for ransomware pattern}
+    \State \textbf{Initialization:}
+    \State Initialize \texttt{csv\_log\_path}
+    \State Define YARA rule for ransomware pattern
+    \State Compile YARA rule
+    \State Initialize \texttt{blocked\_hosts} dictionary
+
+\State \Comment{initialize\_csv(path)}
+    \State \textbf{Function:} 
+    \State \textbf{try}
+    \State \ \ \ Open and write headers to the CSV file at \texttt{path}
+    \State \ \ \ Log success
+    \State \textbf{catch} Exception
+    \State \ \ \ Log error
+    \State \textbf{end try}
+
+\State \Comment{write\_csv\_record(src\_ip, dst\_ip, protocol, action, path)}
+    \State \textbf{Function:}
+    \State \textbf{try}
+    \State \ \ \ Open and append packet record to the CSV file at \texttt{path}
+    \State \ \ \ Log success
+    \State \textbf{catch} Exception
+    \State \ \ \ Log error
+    \State \textbf{end try}
+
+\State \Comment{unblock\_host(ip)}
+    \State \textbf{Function:}
+    \If{ip is in \texttt{blocked\_hosts}}
+        \State Remove ip from \texttt{blocked\_hosts}
+        \State Log the unblocking action
+    \EndIf
+    \end{algorithmic}
+    \end{algorithm}
+
+    
+    \begin{algorithm}
+    \caption{Continuation}
+    \begin{algorithmic}[2]
+\State \Comment{PacketLogger Class}
+    \State \textbf{Class:} 
+    \Procedure{PacketLogger::\_\_init\_\_}{connection}
+        \State Assign connection and add listeners
+        \State Log initialization
+        \State Call \texttt{allow\_basic\_traffic()}
+    \EndProcedure
+
+    \Procedure{PacketLogger::allow\_basic\_traffic}{}
+        \State Send flow mods to allow ICMP and DNS traffic
+        \State Log the allowance of basic traffic
+    \EndProcedure
+
+    \Procedure{PacketLogger::\_handle\_PacketIn}{event}
+        \State Parse the packet from the event
+        \If{packet is incomplete}
+            \State Log warning and return
+        \EndIf
+        \If{packet is IPv4}
+            \State Extract src\_ip and dst\_ip
+            \If{src\_ip is in \texttt{blocked\_hosts}}
+                \State Log blocked packet and write record
+                \State Return
+            \EndIf
+            \If{packet is TCP or UDP}
+                \State Determine protocol and payload
+                \If{YARA rule matches payload}
+                    \State Log detection, add src\_ip to \texttt{blocked\_hosts}, write record
+                    \State Set Timer to unblock src\_ip after 15 minutes
+                    \State Return
+                \EndIf
+            \EndIf
+            \State Determine protocol and write allowed record
+            \State Allow the packet by sending flow mod
+        \EndIf
+    \EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]
+    \caption{Part 3}
+\begin{algorithmic}[3]
+    \State \Comment{launch}
+     \State \textbf{Function:}
+        \State Call \texttt{initialize\_csv(csv\_log\_path)}
+        \State Define \texttt{start\_switch(event)} to log control and create \texttt{PacketLogger}
+        \State Add listener for \texttt{ConnectionUp} event to \texttt{start\_switch}
+\end{algorithmic}
+\end{algorithm}
+
+
+\subsubsection{FlowChart of the Algorithm}
+
+\begin{figure}[httb]
+    \centering
+    \includegraphics[width =\textwidth, height = 16cm]{images/mermaid-diagram-2024-05-21-182552.png}
+    \caption{Flow Chart Diagram of algorithm}
+    \label{fig:Flow Chart Diagram algorithm}
+\end{figure}
+
+\newpage
+\subsection{Visual Representation of Result}
+\begin{figure*}[htbp]
+    \centering
+    \includegraphics[width=\textwidth, height=8cm]{images/Screenshot 2024-05-21 at 01.01.06.png}
+    \caption{Potential Pattern of Malware packet}
+    \label{fig:Potential Pattern of Malware packet}
+\end{figure*}
+
+\begin{figure*}[htbp]
+    \centering
+    \includegraphics[width=\textwidth, height=8cm]{images/Screenshot 2024-05-21 at 02.39.47.png}
+    \caption{Blocked the host after Running Controller}
+    \label{fig:Blocked the host after Running Controller}
+\end{figure*}
+
+\clearpage
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics{images/Screenshot 2024-05-21 at 17.59.39.png}
+    \caption{List of Allowed and Blocked IP}
+    \label{fig:List of Allowed and Blocked IP}
+\end{figure}
+
+
 \clearpage
     \newpage
     \section*{Chapter 5}
-        \section{Conclusion and Future Scope}
+        \section{Conclusion}
 
-            We'll Write in final Submission
+            In this project, we successfully detected and mitigated ransomware-infected hosts or attackers using our Software-Defined Networking (SDN) based Deep Packet Inspection (DPI) method. By leveraging the power of signature-based detection with Regular Expressions (RegEX), we developed an algorithm that effectively identifies and blocks malicious network traffic. Our approach demonstrated the efficacy of combining SDN flexibility with advanced pattern-matching techniques to enhance network security.
+
+        \section{Future Scope}
+
+        While our current implementation focuses on a single signature pattern for detecting ransomware, there is significant potential for improvement. Future enhancements should aim to incorporate multiple signature patterns to detect a broader range of ransomware variants and other malicious activities. By expanding the algorithm to recognize various threat signatures, we can further strengthen our defense mechanisms. Additionally, integrating machine learning techniques to dynamically update and refine these patterns will ensure that our system adapts to emerging threats, maintaining robust protection against sophisticated cyber-attacks.
 
 \clearpage
 \newpage
@@ -1049,11 +1345,4 @@
     \printbibliography
     \addcontentsline{toc}{section}{References}
 
-    
-% \section*{Team Details}
-% \subsection*{Hemant Kumar}
-% I am currently pursuing my B.Tech in Computer Science and Engineering from the Indian Institute of Information Technology, Design and Manufacturing (IIITDM) Jabalpur, India, and am in my final year of study. As part of my academic curriculum, I am working on this project/report, which is a requirement for the partial fulfillment of my degree. My research interests include areas such as software engineering, SDN, Social Network Analysis and cybersecurity. %I actively participate in academic and research activities within my institute, and I am eager to contribute to the advancement of knowledge in my field.
-
-% \subsection*{Chaitanya Mandi}
-% I am currently pursuing my B.Tech in Computer Science and Engineering from the Indian Institute of Information Technology, Design and Manufacturing (IIITDM) Jabalpur, India, and am in my final year of study. As part of my academic curriculum, I am working on this project/report, which is a requirement for the partial fulfillment of my degree. My research interests include areas such as software engineering, SDN, Social Network Analysis and cybersecurity.
 \end{document}
